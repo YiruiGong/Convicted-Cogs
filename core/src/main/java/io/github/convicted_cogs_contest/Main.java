@@ -12,9 +12,9 @@ public class Main extends Game {
     FitViewport viewport;
     @Override
     public void create() {
-        setScreen(new TitleScreen());
-        spriteBatch = new SpriteBatch();
-        viewport = new FitViewport(8, 5);
-        mapImage = new Texture("map.png");
+//        setScreen(new TitleScreen());
+//        spriteBatch = new SpriteBatch();
+//        viewport = new FitViewport(8, 5);
+//        mapImage = new Texture("map.png");
     }
 }
