@@ -5,18 +5,24 @@
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class Test extends ApplicationAdapter {
+public class Test extends Game {
     SpriteBatch batch;
     Texture sol;
     int x,y;
     Rectangle solHitBox;
+    ShapeRenderer shapeRenderer;
+    FitViewport viewport;
     
     
     @Override
@@ -24,6 +30,7 @@ public class Test extends ApplicationAdapter {
         batch = new SpriteBatch();
         sol = new Texture("images.png");
         solHitBox = new Rectangle(x, y, 64, 64);
+        viewport = new FitViewport(8, 5);
     }
     
     
@@ -47,6 +54,8 @@ public class Test extends ApplicationAdapter {
         batch.begin();
         batch.draw(sol, x, y);
         batch.end();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.rect(x, y, 1600, 900, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.RED, com.badlogic.gdx.graphics.Color.RED);
         System.out.println(x);
         System.out.println(y);
     }
