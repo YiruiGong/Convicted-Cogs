@@ -4,10 +4,25 @@
  */
 package io.github.convicted_cogs_contest;
 
-/**
- *
- * @author gongm
- */
+import java.util.ArrayList;
+
 public class Character {
+    int health;
+    ArrayList<Move> attacks;
+    boolean block;
+
+    public Character(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public boolean isBlock() {
+        return block;
+    }
+    
+    
     
 }
