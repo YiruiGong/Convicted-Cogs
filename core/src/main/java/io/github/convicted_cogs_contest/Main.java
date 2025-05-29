@@ -1,4 +1,4 @@
-package io.github.some_example_name;
+package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.Game;
 
