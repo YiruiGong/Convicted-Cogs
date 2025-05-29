@@ -3,7 +3,7 @@ package io.github.convicted_cogs_contest;
 import com.badlogic.gdx.Screen;
 
 /** First screen of the application. Displayed after the application is created. */
-public class FirstScreen implements Screen {
+public class TitleScreen implements Screen {
     @Override
     public void show() {
         // Prepare your screen here.
