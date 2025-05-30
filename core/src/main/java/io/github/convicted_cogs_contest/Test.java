@@ -54,10 +54,10 @@ public class Test extends Game {
         batch.begin();
         batch.draw(sol, x, y);
         batch.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(x, y, 1600, 900, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.RED, com.badlogic.gdx.graphics.Color.RED);
-        System.out.println(x);
-        System.out.println(y);
+//        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        shapeRenderer.rect(x, y, 1600, 900, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.BLUE, com.badlogic.gdx.graphics.Color.RED, com.badlogic.gdx.graphics.Color.RED);
+//        System.out.println(x);
+//        System.out.println(y);
     }
     
 

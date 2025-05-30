@@ -13,7 +13,13 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new TitleScreen(), getDefaultConfiguration());
+        int screen = 1;
+        if (screen == 0) {
+            return new Lwjgl3Application(new Test(), getDefaultConfiguration());
+        } else {
+            return new Lwjgl3Application(new TitleScreen(), getDefaultConfiguration());
+        }
+        
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
