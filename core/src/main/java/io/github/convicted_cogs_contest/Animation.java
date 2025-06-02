@@ -4,10 +4,6 @@
  */
 package io.github.convicted_cogs_contest;
 
-/**
- *
- * @author gongm
- */
 public class Animation {
     
 }
