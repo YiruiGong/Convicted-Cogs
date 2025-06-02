@@ -1,7 +1,10 @@
 package io.github.convicted_cogs_contest.lwjgl3;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import io.github.convicted_cogs_contest.Main;
 import io.github.convicted_cogs_contest.Test;
 import io.github.convicted_cogs_contest.TitleScreen;
 
@@ -11,15 +14,11 @@ public class Lwjgl3Launcher {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
         createApplication();
     }
-
+    
     private static Lwjgl3Application createApplication() {
-        int screen = 1;
-        if (screen == 0) {
-            return new Lwjgl3Application(new Test(), getDefaultConfiguration());
-        } else {
-            return new Lwjgl3Application(new TitleScreen(), getDefaultConfiguration());
-        }
-        
+//        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+
+            return new Lwjgl3Application(new Main(), getDefaultConfiguration());        
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
@@ -40,5 +39,9 @@ public class Lwjgl3Launcher {
         //// They can also be loaded from the root of assets/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
         return configuration;
+    }
+
+    private static void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -27,7 +27,7 @@ public class Character {
     
     public Character(SpriteBatch sb) {
         spriteBatch = sb;
-        texture = new Texture("character/180px-GGST_Sol_Badguy_5P.png");
+        texture = new Texture("images.png");
         hitBox = new Rectangle();
         speed = 5;
         x = 0;
