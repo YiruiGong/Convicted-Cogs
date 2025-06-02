@@ -3,6 +3,7 @@ package io.github.convicted_cogs_contest;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,18 +15,22 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
  * platforms.
  */
-public class mainv2 extends Game {
+public class GameScreen implements Screen {
 
-    SpriteBatch spriteBatch;
     FitViewport viewport;
     Character sol1;
+    
+    Main game;
+    
+    public GameScreen(Main game) {
+        this.game = game;
+    }
 
     @Override
-    public void create() {
+    public void show() {
         //setScreen(new Titlev2(this));
-        spriteBatch = new SpriteBatch();
         viewport = new FitViewport(1600, 900);
-        sol1 = new Character(spriteBatch);
+        sol1 = new Character(game.spriteBatch);
 
     }
 
@@ -35,7 +40,7 @@ public class mainv2 extends Game {
     }
 
     @Override
-    public void render() {
+    public void render(float f) {
         input();
         logic();
         draw();
@@ -65,20 +70,32 @@ public class mainv2 extends Game {
     public void draw() {
         ScreenUtils.clear(Color.BLACK);
         viewport.apply();
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
-        spriteBatch.begin();
+        game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        game.spriteBatch.begin();
 
         float worldHeight = viewport.getWorldHeight();
         float worldWidth = viewport.getWorldWidth();
 
-        spriteBatch.draw(sol1.getTexture(), 0, 0);
+        game.spriteBatch.draw(sol1.getTexture(), 0, 0);
 
-        spriteBatch.end();
+        game.spriteBatch.end();
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
     }
 
 }
