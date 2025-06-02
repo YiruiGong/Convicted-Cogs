@@ -23,8 +23,9 @@ public class TitleScreen extends ApplicationAdapter {
         toFightScreen = new BitmapFont();
         font.getData().scale(1f);
         toFightScreen.getData().scale(1f);
+        
     }
-
+    
     @Override
     public void render() {
         // Draw your screen here. "delta" is the time since last render in seconds.
@@ -35,6 +36,7 @@ public class TitleScreen extends ApplicationAdapter {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         font.draw(batch, "Convicted Cogs Contest",800, 450);
         toFightScreen.draw(batch, "Press space bar to Continue", 800, 200);
+        
         batch.end();
     }
 
