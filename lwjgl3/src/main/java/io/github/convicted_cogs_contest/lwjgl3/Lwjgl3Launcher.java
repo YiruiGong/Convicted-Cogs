@@ -16,7 +16,6 @@ public class Lwjgl3Launcher {
     }
     
     private static Lwjgl3Application createApplication() {
-//        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
 
             return new Lwjgl3Application(new Main(), getDefaultConfiguration());        
     }

@@ -16,12 +16,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author Administrator
  */
 public class TitleScreen implements Screen {
-
-    
     BitmapFont font;
     BitmapFont toControlScreen;
     BitmapFont toFightScreen;
     Texture Cog;
+    Texture background;
     
    
     Main game;
@@ -35,6 +34,7 @@ public class TitleScreen implements Screen {
         // Destroy screen's assets here.
         game.spriteBatch.dispose();
         Cog.dispose();
+        background.dispose();
         font.dispose();
         toFightScreen.dispose();
         toControlScreen.dispose();
@@ -43,6 +43,7 @@ public class TitleScreen implements Screen {
     @Override
     public void show() {
         Cog = new Texture("cog.png");
+        background = new Texture("background.png");
         font = new BitmapFont();
         toControlScreen = new BitmapFont();
         toFightScreen = new BitmapFont();
@@ -54,6 +55,7 @@ public class TitleScreen implements Screen {
     public void render(float f) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.spriteBatch.begin();
+        game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(Cog, 100, 100);
         Gdx.gl.glClearColor(0.3f,0,0,1);
         Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -61,7 +63,8 @@ public class TitleScreen implements Screen {
         toFightScreen.draw(game.spriteBatch, "Press space bar to Continue", 800, 200);
         toControlScreen.draw(game.spriteBatch, "Click here to go to controls", 800, 100);
         
-        game.spriteBatch.end();    }
+        game.spriteBatch.end();    
+    }
 
     @Override
     public void resize(int i, int i1) {
