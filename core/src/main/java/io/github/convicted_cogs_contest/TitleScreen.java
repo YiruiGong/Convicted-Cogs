@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  *
  * @author Administrator
  */
-public class TitleScreen implements Screen {
+public class TitleScreen implements Screen{
     BitmapFont font;
     BitmapFont toControlScreen;
     BitmapFont toFightScreen;
