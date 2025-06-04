@@ -55,13 +55,13 @@ public class TitleScreen implements Screen{
     public void render(float f) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.spriteBatch.begin();
-        game.spriteBatch.draw(background, 100, 100);
+        game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(Cog, 100, 100);
         Gdx.gl.glClearColor(0.3f,0,0,1);
         Gdx.gl.glClearColor(1, 0, 0, 1);
-        font.draw(game.spriteBatch, "Convicted Cogs Contest",800,450);
-        toFightScreen.draw(game.spriteBatch, "Press space bar to Continue", 500, 200);
-        toControlScreen.draw(game.spriteBatch, "Click here to go to controls", 500, 100);
+        font.draw(game.spriteBatch, "Convicted Cogs Contest",680,550);
+        toFightScreen.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
+        toControlScreen.draw(game.spriteBatch, "Click Here for Controls", 680, 200);
         
         game.spriteBatch.end();    
     }
