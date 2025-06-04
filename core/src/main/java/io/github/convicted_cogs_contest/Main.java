@@ -35,6 +35,12 @@ public class Main extends Game {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             this.setScreen(new GameScreen(this));
         }
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() > 200 && Gdx.input.getY() > 400){
+            this.setScreen(new ControlScreen(this));
+        }
+        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 800 && Gdx.input.getX() < 1500 && Gdx.input.getY() > 200 && Gdx.input.getY() > 400){
+            this.setScreen(new TitleScreen(this));
+        }
     }
     public void logic() {
         
