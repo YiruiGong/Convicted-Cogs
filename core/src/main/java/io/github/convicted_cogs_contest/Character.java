@@ -5,7 +5,6 @@
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
@@ -14,24 +13,28 @@ public class Character {
     Texture texture;
     Rectangle hitBox;
     
-    float speed;
+    int speed;
+    
     
     SpriteBatch spriteBatch;
     
-    float x;
-    float y;
+    int xPos;
+    int yPos;   
     
     int health;
     ArrayList<Move> attacks;
+    ArrayList<Animation> movement;
+    int movementIndex;
     boolean block;
     
-    public Character(SpriteBatch sb) {
+    public Character(SpriteBatch sb, ArrayList<Animation> movement) {
         spriteBatch = sb;
-        texture = new Texture("images.png");
+        texture = new Texture("idle.png");
         hitBox = new Rectangle();
         speed = 5;
-        x = 0;
-        y = 0;
+        xPos = 0;
+        yPos = 0;
+        this.movement = movement;
     }
     
     public Texture getTexture() {
@@ -39,7 +42,7 @@ public class Character {
     }
     
     public void draw() {
-        spriteBatch.draw(texture, x, y);
+        movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
     }
     
     public float getSpeed() {
@@ -52,6 +55,26 @@ public class Character {
 
     public boolean isBlock() {
         return block;
+    }
+    
+    public void moveForward() {
+        movementIndex = 1;
+        xPos += speed;
+    }
+    
+    public void notMove() {
+        movementIndex = 0;
+   
+    }
+    
+    public void moveBackward() {
+        movementIndex = 2;
+        xPos -= speed;
+    }
+    
+    public void move(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
     
     

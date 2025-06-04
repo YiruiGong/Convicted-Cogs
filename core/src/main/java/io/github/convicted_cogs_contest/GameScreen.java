@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import java.util.ArrayList;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
@@ -19,9 +20,10 @@ public class GameScreen implements Screen {
 
     FitViewport viewport;
     Character sol1;
-    
+    Character sol2;
+
     Main game;
-    
+
     public GameScreen(Main game) {
         this.game = game;
     }
@@ -30,7 +32,18 @@ public class GameScreen implements Screen {
     public void show() {
         //setScreen(new Titlev2(this));
         viewport = new FitViewport(1600, 900);
-        sol1 = new Character(game.spriteBatch);
+        ArrayList<Animation> movement1 = new ArrayList<Animation>();
+        movement1.add(new Animation("idle.png", 8, 144, 283, -14));
+        movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
+        movement1.add(new Animation("walkbackward.png", 8, 213, 286, -80));
+        ArrayList<Animation> movement2 = new ArrayList<Animation>();
+        movement2.add(new Animation("idle2.png", 8, 144, 283, -14));
+        movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
+        movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
+
+        sol1 = new Character(game.spriteBatch, movement1);
+        sol2 = new Character(game.spriteBatch, movement2);
+        sol2.move(600, 0);
 
     }
 
@@ -47,14 +60,24 @@ public class GameScreen implements Screen {
     }
 
     public void input() {
-        
+
         float delta = Gdx.graphics.getDeltaTime();
 
-//        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-//            sol1.getSprite().translateX(sol1.getSpeed() * delta);
-//        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-//            sol1.getSprite().translateX(-sol1.getSpeed() * delta);
-//        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            sol1.moveForward();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            sol1.moveBackward();
+        } else {
+            sol1.notMove();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            sol2.moveForward();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            sol2.moveBackward();
+        } else {
+            sol2.notMove();
+        }
     }
 
     public void logic() {
@@ -63,8 +86,8 @@ public class GameScreen implements Screen {
 
 //        float character1Width = sol1.getWidth();
 //        float character1Height = sol1.getHeight();
-
         //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));
+        
     }
 
     public void draw() {
@@ -76,8 +99,9 @@ public class GameScreen implements Screen {
         float worldHeight = viewport.getWorldHeight();
         float worldWidth = viewport.getWorldWidth();
 
-        game.spriteBatch.draw(sol1.getTexture(), 0, 0);
-
+        sol1.draw();
+        sol2.draw();
+        
         game.spriteBatch.end();
     }
 
