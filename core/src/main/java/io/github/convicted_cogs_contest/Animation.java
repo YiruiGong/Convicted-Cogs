@@ -4,6 +4,28 @@
  */
 package io.github.convicted_cogs_contest;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Animation {
+    
+    Texture image;
+    int frameNum;
+    Texture frameImage;
+    
+    
+    public Animation(String imageName) {
+        image = new Texture(imageName);
+        frameNum = 0;
+        frameImage = new Texture(imageName);
+    }
+    
+    public void draw() {
+        
+    }
+    
+    
+    
+    
+    
     
 }

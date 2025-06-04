@@ -4,10 +4,18 @@
  */
 package io.github.convicted_cogs_contest;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+
 /**
  *
  * @author gongm
  */
 public class Move {
+    Texture frame;
+    Rectangle hurtbox;
     
+    public Move() {
+        frame = new Texture("a");
+    }
 }
