@@ -19,25 +19,27 @@ public class Main extends Game {
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
-            this.setScreen(new TitleScreen(this));
+        this.setScreen(new TitleScreen(this));
             
     }
 
     @Override
     public void render() {
         super.render();
+        input();
+        logic();
+        draw();
+    }
+    
+    public void input(){
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             this.setScreen(new GameScreen(this));
         }
     }
-    
-    public void Input(){
+    public void logic() {
         
     }
-    public void Logic() {
-        
-    }
-    public void Draw(){
+    public void draw(){
         
     }
         
