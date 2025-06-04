@@ -30,16 +30,16 @@ public class ControlScreen implements Screen {
     
     @Override
     public void show() {
-        title = new BitmapFont();
-        ControlP1 = new BitmapFont();
-        ControlP2 = new BitmapFont();
-        exit = new BitmapFont();
+        title = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        ControlP1 = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        ControlP2 = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        exit = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         background = new Texture("background.png");
         
-        title.getData().scale(1f);
-        ControlP1.getData().scale(1f);
-        ControlP2.getData().scale(1f); 
-        exit.getData().scale(1f);
+        title.getData().scale(0);
+        ControlP1.getData().scale(0);
+        ControlP2.getData().scale(0); 
+        exit.getData().scale(0);
     }
 
     @Override

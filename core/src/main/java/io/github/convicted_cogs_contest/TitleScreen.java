@@ -44,12 +44,12 @@ public class TitleScreen implements Screen{
     public void show() {
         Cog = new Texture("cog.png");
         background = new Texture("background.png");
-        font = new BitmapFont();
-        toControlScreen = new BitmapFont();
-        toFightScreen = new BitmapFont();
-        font.getData().scale(1f);
-        toControlScreen.getData().scale(1f);
-        toFightScreen.getData().scale(1f);    }
+        font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        toControlScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        toFightScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        font.getData().scale(0);
+        toControlScreen.getData().scale(0);
+        toFightScreen.getData().scale(0);    }
 
     @Override
     public void render(float f) {
@@ -59,7 +59,7 @@ public class TitleScreen implements Screen{
         game.spriteBatch.draw(Cog, 100, 100);
         Gdx.gl.glClearColor(0.3f,0,0,1);
         Gdx.gl.glClearColor(1, 0, 0, 1);
-        font.draw(game.spriteBatch, "Convicted Cogs Contest",800, 450);
+        font.draw(game.spriteBatch, "Convicted Cogs Contest",800,450);
         toFightScreen.draw(game.spriteBatch, "Press space bar to Continue", 800, 200);
         toControlScreen.draw(game.spriteBatch, "Click here to go to controls", 800, 100);
         
