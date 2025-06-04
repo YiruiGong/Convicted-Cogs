@@ -5,6 +5,8 @@
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -17,11 +19,26 @@ public class Main extends Game {
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
-            this.setScreen(new ControlScreen(this));
+            this.setScreen(new TitleScreen(this));
+            
     }
 
     @Override
     public void render() {
         super.render();
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            this.setScreen(new GameScreen(this));
+        }
     }
+    
+    public void Input(){
+        
+    }
+    public void Logic() {
+        
+    }
+    public void Draw(){
+        
+    }
+        
 }
