@@ -41,12 +41,12 @@ public class Main extends Game {
         
         
         
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 750 && Gdx.input.getY() > 550 && getScreen() instanceof TitleScreen){
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 750 && Gdx.input.getY() > 700 && getScreen() instanceof TitleScreen){
             this.setScreen(new ControlScreen(this));
             
         }
         
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 800 && Gdx.input.getX() < 1500 && Gdx.input.getY() < 750 && Gdx.input.getY() > 550 && getScreen() instanceof ControlScreen){
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 800 && Gdx.input.getX() < 1500 && Gdx.input.getY() < 750 && Gdx.input.getY() > 700 && getScreen() instanceof ControlScreen){
             this.setScreen(new TitleScreen(this));
             
         }
