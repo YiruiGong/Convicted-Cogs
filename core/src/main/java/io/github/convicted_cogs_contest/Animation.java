@@ -20,7 +20,6 @@ public class Animation {
     
     
     public Animation(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset) {
-        this.spriteBatch = spriteBatch;
         images = new Texture(imageName);
         this.numFrames = numFrames;
         currentFrame = 1;
@@ -32,6 +31,7 @@ public class Animation {
     
     public boolean doneAnimation() {
         if (currentFrame == numFrames) {
+            currentFrame = 1;
             return true;
         } else {
             return false;

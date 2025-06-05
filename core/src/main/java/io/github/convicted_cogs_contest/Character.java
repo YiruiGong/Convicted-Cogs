@@ -23,22 +23,27 @@ public class Character {
     
     int health;
     ArrayList<Move> attack;
+    int attackIndex;
     ArrayList<Animation> movement;
     int movementIndex;
-    boolean block;
-    boolean attacking;
+    boolean blocking;
+    boolean hit;
     boolean stun;
+    boolean attacking;
+    
     
     public Character(SpriteBatch sb, ArrayList<Animation> movement, ArrayList<Move> attacks) {
         spriteBatch = sb;
         texture = new Texture("idle.png");
-        hitbox = new Rectangle(xPos, yPos, 200, 300);
-        speed = 5;
+        hitbox = new Rectangle(xPos, yPos, 100, 300);
+        speed = 10;
         xPos = 0;
         yPos = 0;
         this.movement = movement;
         this.attack = attacks;
         health = 100;
+        hit = false;
+        
     }
     
     public Texture getTexture() {
@@ -47,18 +52,22 @@ public class Character {
     
     public void draw() {
         if (stun == true) {
-            if (block == true) {
+            if (hit == true) {
                 movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
+                setStun(movement.get(movementIndex));
             } else {
-
+                attacking = true;
+                attack.get(attackIndex).draw(spriteBatch, xPos, yPos);
+                setStun(attack.get(attackIndex));
             }
+        } else {
+            movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
         }
-        movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
         hitbox.setPosition(xPos, yPos);
     }
     
     public void attack(int move) {
-        
+        attackIndex = move;
         stun = true;
     }
     
@@ -87,15 +96,18 @@ public class Character {
     }
 
     public void Block() {
-        block = true;  
+        blocking = true;  
     }
     
     public boolean isHit(boolean collision, int damage) {
-        if (block == true) {
+        hit = true;
+        if (blocking == true) {
+            health -= 3;
             movementIndex = 3;
             return false;
         } else {
             movementIndex = 4;
+            health -= damage;
             return true;
         }
     }
@@ -122,6 +134,10 @@ public class Character {
     public void move(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
+    }
+    
+    public int getAttackIndex() {
+        return attackIndex;
     }
     
     

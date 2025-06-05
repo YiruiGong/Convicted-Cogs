@@ -36,18 +36,28 @@ public class GameScreen implements Screen {
         ArrayList<Animation> movement1 = new ArrayList<Animation>();
         movement1.add(new Animation("idle.png", 8, 144, 283, -14));
         movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
-        movement1.add(new Animation("walkbackward.png", 8, 213, 286, -80));
+        movement1.add(new Animation("walkbackward.png", 8, 213, 281, -80));
         movement1.add(new Animation("block.png", 5, 137, 280, -6));
-        
+
         ArrayList<Move> attack1 = new ArrayList<Move>();
-        attack1.add(new Move("punch.png", 7, 220, 279, -28, new Rectangle(0,0,80,80)));
-        attack1.add(new Move("kick1.png", 8, 278, 280, -65, new Rectangle(0,0,80,80)));
+        //ArrayList<DamageFrame> punchFrame = new ArrayList<DamageFrame>();
+        ArrayList<Integer> punch = new ArrayList<Integer>();
+        punch.add(3);
+        punch.add(4);
+        punch.add(5);
+        //punchFrame.add(new DamageFrame(3, new Rectangle(0,0,62,300)));
+        //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
         
+        attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0,0,100,300), punch));
+        //attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, ));
+
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -14));
-        movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
-        movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
-
+        movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -80));
+        movement2.add(new Animation("walkforward2.png", 10, 214, 286, -80));
+        
+        movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -80));
+        movement2.add(new Animation("block.png", 8, 213, 286, -80));
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack1);
         sol2.move(600, 0);
@@ -70,20 +80,23 @@ public class GameScreen implements Screen {
 
         float delta = Gdx.graphics.getDeltaTime();
         if (sol1.getStun() == false) {
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 sol1.moveForward();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 sol1.moveBackward();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+                sol1.Block();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.N)) {
+                sol1.attack(0);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.M)) {
                 sol1.attack(1);
             } else {
                 sol1.notMove();
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             sol2.moveForward();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             sol2.moveBackward();
         } else {
             sol2.notMove();
@@ -93,11 +106,17 @@ public class GameScreen implements Screen {
     public void logic() {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
+        if (sol1.attacking == true) {
+            Rectangle hurtbox = sol1.attack.get(sol1.attackIndex).dealDamage(sol1.xPos + 100, sol1.yPos);
+            if (hurtbox.overlaps(sol2.hitbox)) {
+                sol2.isHit(true, sol1.attack.get(sol1.attackIndex).getDamage());
+                System.out.println("hit");
+            }
+        }
         
 //        float character1Width = sol1.getWidth();
 //        float character1Height = sol1.getHeight();
         //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));
-        
     }
 
     public void draw() {
