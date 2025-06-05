@@ -30,7 +30,13 @@ public class Animation {
         this.xOffset = xOffset;
     }
     
-    
+    public boolean doneAnimation() {
+        if (currentFrame == numFrames) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     public int currentWidth() {
         return currentFrame * frameWidth - frameWidth;

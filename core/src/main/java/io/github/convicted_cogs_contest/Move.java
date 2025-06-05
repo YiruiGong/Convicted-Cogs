@@ -11,11 +11,19 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author gongm
  */
-public class Move {
-    Texture frame;
+public class Move extends Animation {
     Rectangle hurtbox;
     
-    public Move() {
-        frame = new Texture("a");
+    public Move(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset, Rectangle hurtbox) {
+        super(imageName, numFrames, frameWidth, frameHeight, xOffset);
+        this.hurtbox = hurtbox;
     }
+    
+    public Rectangle getHurtbox() {
+        return hurtbox;
+    }
+    
+    
+    
+    
 }

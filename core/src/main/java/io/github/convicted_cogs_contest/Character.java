@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Character {
     Texture texture;
-    Rectangle hitBox;
+    Rectangle hitbox;
     
     int speed;
     
@@ -22,19 +22,23 @@ public class Character {
     int yPos;   
     
     int health;
-    ArrayList<Move> attacks;
+    ArrayList<Move> attack;
     ArrayList<Animation> movement;
     int movementIndex;
     boolean block;
+    boolean attacking;
+    boolean stun;
     
-    public Character(SpriteBatch sb, ArrayList<Animation> movement) {
+    public Character(SpriteBatch sb, ArrayList<Animation> movement, ArrayList<Move> attacks) {
         spriteBatch = sb;
         texture = new Texture("idle.png");
-        hitBox = new Rectangle();
+        hitbox = new Rectangle(xPos, yPos, 200, 300);
         speed = 5;
         xPos = 0;
         yPos = 0;
         this.movement = movement;
+        this.attack = attacks;
+        health = 100;
     }
     
     public Texture getTexture() {
@@ -42,7 +46,32 @@ public class Character {
     }
     
     public void draw() {
+        if (stun == true) {
+            if (block == true) {
+                movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
+            } else {
+
+            }
+        }
         movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
+        hitbox.setPosition(xPos, yPos);
+    }
+    
+    public void attack(int move) {
+        
+        stun = true;
+    }
+    
+    public void setStun(Animation a) {
+        if (a.doneAnimation() == false) {
+            stun = true;
+        } else {
+            stun = false;
+        }
+    }
+    
+    public boolean getStun() {
+        return stun;
     }
     
     public float getSpeed() {
@@ -52,9 +81,27 @@ public class Character {
     public int getHealth() {
         return health;
     }
+    
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
 
-    public boolean isBlock() {
-        return block;
+    public void Block() {
+        block = true;  
+    }
+    
+    public boolean isHit(boolean collision, int damage) {
+        if (block == true) {
+            movementIndex = 3;
+            return false;
+        } else {
+            movementIndex = 4;
+            return true;
+        }
+    }
+    
+    public void takeDamage(int damage) {
+        health -= damage;
     }
     
     public void moveForward() {

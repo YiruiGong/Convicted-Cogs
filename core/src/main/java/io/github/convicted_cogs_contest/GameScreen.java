@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
@@ -36,13 +37,19 @@ public class GameScreen implements Screen {
         movement1.add(new Animation("idle.png", 8, 144, 283, -14));
         movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
         movement1.add(new Animation("walkbackward.png", 8, 213, 286, -80));
+        movement1.add(new Animation("block.png", 5, 137, 280, -6));
+        
+        ArrayList<Move> attack1 = new ArrayList<Move>();
+        attack1.add(new Move("punch.png", 7, 220, 279, -28, new Rectangle(0,0,80,80)));
+        attack1.add(new Move("kick1.png", 8, 278, 280, -65, new Rectangle(0,0,80,80)));
+        
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -14));
         movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
         movement2.add(new Animation("walkbackward2.png", 8, 213, 286, -80));
 
-        sol1 = new Character(game.spriteBatch, movement1);
-        sol2 = new Character(game.spriteBatch, movement2);
+        sol1 = new Character(game.spriteBatch, movement1, attack1);
+        sol2 = new Character(game.spriteBatch, movement2, attack1);
         sol2.move(600, 0);
 
     }
@@ -62,13 +69,16 @@ public class GameScreen implements Screen {
     public void input() {
 
         float delta = Gdx.graphics.getDeltaTime();
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            sol1.moveForward();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            sol1.moveBackward();
-        } else {
-            sol1.notMove();
+        if (sol1.getStun() == false) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                sol1.moveForward();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                sol1.moveBackward();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+                sol1.attack(1);
+            } else {
+                sol1.notMove();
+            }
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -83,7 +93,7 @@ public class GameScreen implements Screen {
     public void logic() {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-
+        
 //        float character1Width = sol1.getWidth();
 //        float character1Height = sol1.getHeight();
         //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));
@@ -98,7 +108,6 @@ public class GameScreen implements Screen {
 
         float worldHeight = viewport.getWorldHeight();
         float worldWidth = viewport.getWorldWidth();
-
         sol1.draw();
         sol2.draw();
         
