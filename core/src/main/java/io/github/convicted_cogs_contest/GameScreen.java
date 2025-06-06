@@ -23,6 +23,7 @@ public class GameScreen implements Screen {
     Character sol1;
     Character sol2;
     Texture background;
+    Texture healthUI;
     Texture healthbar1;
     Texture healthbar2;
 
@@ -37,8 +38,9 @@ public class GameScreen implements Screen {
         //setScreen(new Titlev2(this));
         viewport = new FitViewport(1600, 900);
         background = new Texture("Lars_Canyon.png");
-        healthbar1 = new Texture("healthbar1.png");
-        healthbar2 = new Texture("healthbar2.png");
+        healthUI = new Texture("healthUI.png");
+        healthbar1 = new Texture("healthbar_1.png");
+        healthbar2 = new Texture("healthbar_2.png");
         
         ArrayList<Animation> movement1 = new ArrayList<Animation>();
         movement1.add(new Animation("idle.png", 8, 144, 283, -14));
@@ -182,8 +184,9 @@ public class GameScreen implements Screen {
         game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
-        game.spriteBatch.draw(healthbar1, 100, 700, 0,0, (sol1.getHealth() * 6), 30);
-        game.spriteBatch.draw(healthbar2, 1500 - (sol2.getHealth() * 6), 700, 0,0, (sol2.getHealth() * 6), 30);
+        game.spriteBatch.draw(healthUI, 0, 600);
+        game.spriteBatch.draw(healthbar1, 100, 686, 0,0, (sol1.getHealth() * 6), 34);
+        game.spriteBatch.draw(healthbar2, 1500 - (sol2.getHealth() * 6), 686, (600 - sol2.getHealth() * 6),0, 600, 34);
         System.out.println(sol1.getHealth());
         sol1.draw();
         sol2.draw();
