@@ -59,8 +59,20 @@ public class GameScreen implements Screen {
         
         movement2.add(new Animation("hit2.png", 4, 271, 289, -22));
         movement2.add(new Animation("block2.png", 5, 137, 280, -41));
+        
+        ArrayList<Move> attack2 = new ArrayList<Move>();
+        //ArrayList<DamageFrame> punchFrame = new ArrayList<DamageFrame>();
+        ArrayList<Integer> punch2 = new ArrayList<Integer>();
+        punch2.add(3);
+        punch2.add(4);
+        punch2.add(5);
+        //punchFrame.add(new DamageFrame(3, new Rectangle(0,0,62,300)));
+        //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
+        
+        attack2.add(new Move("punch2.png", 7, 220, 279, -28, 20, new Rectangle(0,0,90,300), punch2));
+        attack2.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle (0,0,100,100), punch2));
         sol1 = new Character(game.spriteBatch, movement1, attack1);
-        sol2 = new Character(game.spriteBatch, movement2, attack1);
+        sol2 = new Character(game.spriteBatch, movement2, attack2);
         sol2.move(600, 0);
 
     }
@@ -85,23 +97,29 @@ public class GameScreen implements Screen {
                 sol1.moveForward();
             } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 sol1.moveBackward();
-                sol1.Block();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.N)) {
+                //sol1.Block();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.O)) {
                 sol1.attack(0);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.M)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
                 sol1.attack(1);
             } else {
                 sol1.notMove();
             }
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            sol2.moveForward();
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            sol2.moveBackward();
-            //sol2.Block();
-        } else {
-            sol2.notMove();
+        if (sol2.getStun() == false) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                sol2.moveForward();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                sol2.moveBackward();
+                //sol2.Block();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.N)) {
+                sol2.attack(0);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.M)) {
+                sol2.attack(1);
+            } else {
+                sol2.notMove();
+            }
         }
     }
 
@@ -109,13 +127,20 @@ public class GameScreen implements Screen {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
         if (sol1.attacking == true) {
-            Rectangle hurtbox = sol1.attack.get(sol1.attackIndex).dealDamage(sol1.xPos + 100, sol1.yPos);
+            Rectangle hurtbox = sol1.attack.get(sol1.attackIndex).dealDamage(sol1.xPos + 90, sol1.yPos);
             if (hurtbox.overlaps(sol2.hitbox)) {
                 sol2.isHit(true, sol1.attack.get(sol1.attackIndex).getDamage());
                 System.out.println("hit");
             }
         }
         
+        if (sol2.attacking == true) {
+            Rectangle hurtbox = sol2.attack.get(sol2.attackIndex).dealDamage(sol2.xPos - 90, sol2.yPos);
+            if (hurtbox.overlaps(sol1.hitbox)) {
+                sol1.isHit(true, sol2.attack.get(sol2.attackIndex).getDamage());
+                System.out.println("hit");
+            }
+        }
 //        float character1Width = sol1.getWidth();
 //        float character1Height = sol1.getHeight();
         //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));

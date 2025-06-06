@@ -74,6 +74,7 @@ public class Character {
     public void setStun(Animation a) {
         if (a.doneAnimation() == false) {
             stun = true;
+            hit = false;
         } else {
             stun = false;
         }
