@@ -15,6 +15,7 @@ public class Character {
     Rectangle hitbox;
 
     int speed;
+    boolean moving;
 
     SpriteBatch spriteBatch;
 
@@ -40,7 +41,10 @@ public class Character {
         texture = new Texture("idle.png");
         width = 90;
         hitbox = new Rectangle(xPos, yPos, width, 300);
+        
         speed = 10;
+        moving = false;
+        
         xPos = 0;
         yPos = 0;
 
@@ -62,7 +66,6 @@ public class Character {
     public void draw() {
         if (stun == true) {
             if (hit == true) {
-
                 movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
                 setStun(movement.get(movementIndex));
             } else {
@@ -108,15 +111,19 @@ public class Character {
     }
 
     public int getHealth() {
-        return health;
+        if (health > 0) {
+            return health;
+        } else {
+            return 0;
+        }
     }
 
     public Rectangle getHitbox() {
         return hitbox;
     }
 
-    public void Block() {
-        blocking = true;
+    public void setBlock(boolean blocking) {
+        this.blocking = blocking;
     }
 
     public void isHit(boolean collision, int damage) {
@@ -138,23 +145,26 @@ public class Character {
         health -= damage;
     }
 
-    public void moveForward() {
+    public void moveRight() {
         movementIndex = 1;
         if (stun == false && xPos <= 1500) {
             xPos += speed;
         }
+        moving = true;
     }
 
     public void notMove() {
         movementIndex = 0;
+        moving = false;
 
     }
 
-    public void moveBackward() {
+    public void moveLeft() {
         movementIndex = 2;
         if (stun == false && xPos > 0) {
             xPos -= speed;
         }
+        moving = true;
     }
 
     public void move(int xPos, int yPos) {
