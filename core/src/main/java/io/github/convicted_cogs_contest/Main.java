@@ -36,8 +36,8 @@ public class Main extends Game {
             this.setScreen(new GameScreen(this));
         }
         
-        System.out.println("X Val: " + Gdx.input.getX());
-        System.out.println("Y Val: " + Gdx.input.getY());
+        //System.out.println("X Val: " + Gdx.input.getX());
+        //System.out.println("Y Val: " + Gdx.input.getY());
         
         
         

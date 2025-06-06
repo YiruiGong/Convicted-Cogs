@@ -10,50 +10,60 @@ import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 
 public class Character {
+
     Texture texture;
     Rectangle hitbox;
-    
+
     int speed;
-    
-    
+
     SpriteBatch spriteBatch;
-    
+
     int xPos;
-    int yPos;   
-    
+    int yPos;
+
     int health;
     ArrayList<Move> attack;
     int attackIndex;
+
     ArrayList<Animation> movement;
     int movementIndex;
+
     boolean blocking;
     boolean hit;
     boolean stun;
     boolean attacking;
-    
-    
-    public Character(SpriteBatch sb, ArrayList<Animation> movement, ArrayList<Move> attacks) {
-        spriteBatch = sb;
+
+    int width;
+
+    public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacks) {
+        this.spriteBatch = spriteBatch;
         texture = new Texture("idle.png");
-        hitbox = new Rectangle(xPos, yPos, 90, 300);
+        width = 90;
+        hitbox = new Rectangle(xPos, yPos, width, 300);
         speed = 10;
         xPos = 0;
         yPos = 0;
+
         this.movement = movement;
         this.attack = attacks;
+
         health = 100;
+
+        stun = false;
         hit = false;
-        
+        blocking = false;
+        attacking = false;
     }
-    
+
     public Texture getTexture() {
         return texture;
     }
-    
+
     public void draw() {
         if (stun == true) {
             if (hit == true) {
-                movement.get(5).draw(spriteBatch, xPos, yPos);
+
+                movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
                 setStun(movement.get(movementIndex));
             } else {
                 attacking = true;
@@ -65,87 +75,95 @@ public class Character {
         }
         hitbox.setPosition(xPos, yPos);
     }
-    
+
     public void attack(int move) {
         attackIndex = move;
         stun = true;
+        attacking = true;
     }
-    
+
     public void setStun(Animation a) {
-        if (a.doneAnimation() == false) {
-            stun = true;
-            hit = false;
-            blocking = false;
-        } else {
+        if (a.doneAnimation() == true) {
+            if (hit == true) {
+                hit = false;
+                blocking = false;
+            } else {
+                attacking = false;
+            }
             stun = false;
+        } else {
+            stun = true;
+            if (!attacking) {
+                hit = true;
+            }
         }
     }
-    
+
     public boolean getStun() {
         return stun;
     }
-    
-    public float getSpeed() {
-        return speed;
+
+    public int getWidth() {
+        return width;
     }
 
     public int getHealth() {
         return health;
     }
-    
+
     public Rectangle getHitbox() {
         return hitbox;
     }
 
     public void Block() {
-        blocking = true;  
+        blocking = true;
     }
-    
-    public boolean isHit(boolean collision, int damage) {
-        hit = true;
-        if (blocking == true) {
-            health -= 3;
-            movementIndex = 4;
-            return false;
-        } else {
-            movementIndex = 3;
-            health -= damage;
-            return true;
+
+    public void isHit(boolean collision, int damage) {
+
+        stun = true;
+        if (hit == false) {
+            if (blocking == true) {
+                health -= 3;
+                movementIndex = 4;
+            } else {
+                movementIndex = 3;
+                health -= damage;
+            }
+            hit = true;
         }
     }
-    
+
     public void takeDamage(int damage) {
         health -= damage;
     }
-    
+
     public void moveForward() {
         movementIndex = 1;
-        if (hit == false && xPos <= 1500) {
+        if (stun == false && xPos <= 1500) {
             xPos += speed;
         }
     }
-    
+
     public void notMove() {
         movementIndex = 0;
-   
+
     }
-    
+
     public void moveBackward() {
         movementIndex = 2;
-        if (hit == false && xPos > 0) {
+        if (stun == false && xPos > 0) {
             xPos -= speed;
         }
     }
-    
+
     public void move(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }
-    
+
     public int getAttackIndex() {
         return attackIndex;
     }
-    
-    
-    
+
 }

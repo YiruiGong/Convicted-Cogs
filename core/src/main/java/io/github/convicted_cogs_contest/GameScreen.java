@@ -41,16 +41,17 @@ public class GameScreen implements Screen {
         movement1.add(new Animation("block.png", 5, 137, 280, -6));
 
         ArrayList<Move> attack1 = new ArrayList<Move>();
-        //ArrayList<DamageFrame> punchFrame = new ArrayList<DamageFrame>();
         ArrayList<Integer> punch = new ArrayList<Integer>();
         punch.add(3);
         punch.add(4);
         punch.add(5);
-        //punchFrame.add(new DamageFrame(3, new Rectangle(0,0,62,300)));
-        //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
+        //45
+        ArrayList<Integer> kick = new ArrayList<Integer>();
+        kick.add(4);
+        kick.add(5);
 
         attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0, 0, 90, 300), punch));
-        attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle(0, 0, 100, 100), punch));
+        attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle(0, 0, 110, 300), kick));
 
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -40));
@@ -61,19 +62,17 @@ public class GameScreen implements Screen {
         movement2.add(new Animation("block2.png", 5, 137, 280, -41));
 
         ArrayList<Move> attack2 = new ArrayList<Move>();
-        //ArrayList<DamageFrame> punchFrame = new ArrayList<DamageFrame>();
         ArrayList<Integer> punch2 = new ArrayList<Integer>();
         punch2.add(3);
         punch2.add(4);
         punch2.add(5);
-        //punchFrame.add(new DamageFrame(3, new Rectangle(0,0,62,300)));
-        //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
 
-        attack2.add(new Move("punch2.png", 7, 220, 279, -28, 20, new Rectangle(0, 0, 90, 300), punch2));
-        attack2.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle(0, 0, 100, 100), punch2));
+        attack2.add(new Move("punch2.png", 7, 220, 279, -102, 20, new Rectangle(0, 0, 90, 300), punch2));
+        attack2.add(new Move("kick1.png", 8, 278, 280, -123, 40, new Rectangle(0, 0, 110, 100), kick));
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack2);
-        sol2.move(600, 0);
+        sol1.move(300, 0);
+        sol2.move(1600 - sol2.getWidth() - 300, 0);
 
     }
 
@@ -106,6 +105,7 @@ public class GameScreen implements Screen {
                 sol1.Block();
             } else {
                 sol1.notMove();
+                sol1.blocking = false;
             }
         }
 
@@ -153,7 +153,7 @@ public class GameScreen implements Screen {
         viewport.apply();
         game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         game.spriteBatch.begin();
-
+        System.out.println(sol1.getHealth());
         float worldHeight = viewport.getWorldHeight();
         float worldWidth = viewport.getWorldWidth();
         sol1.draw();
