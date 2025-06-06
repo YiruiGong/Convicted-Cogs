@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.github.convicted_cogs_contest.Main;
-import io.github.convicted_cogs_contest.Test;
 import io.github.convicted_cogs_contest.TitleScreen;
 
 /** Launches the desktop (LWJGL3) application. */

@@ -36,7 +36,8 @@ public class GameScreen implements Screen {
         ArrayList<Animation> movement1 = new ArrayList<Animation>();
         movement1.add(new Animation("idle.png", 8, 144, 283, -14));
         movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
-        movement1.add(new Animation("walkbackward.png", 8, 213, 281, -80));
+        movement1.add(new Animation("walkbackward.png", 8, 213, 281, -79));
+        movement1.add(new Animation("hit1.png", 4, 271, 289, -69));
         movement1.add(new Animation("block.png", 5, 137, 280, -6));
 
         ArrayList<Move> attack1 = new ArrayList<Move>();
@@ -48,16 +49,16 @@ public class GameScreen implements Screen {
         //punchFrame.add(new DamageFrame(3, new Rectangle(0,0,62,300)));
         //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
         
-        attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0,0,100,300), punch));
+        attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0,0,90,300), punch));
         //attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, ));
 
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
-        movement2.add(new Animation("idle2.png", 8, 144, 283, -14));
-        movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -80));
-        movement2.add(new Animation("walkforward2.png", 10, 214, 286, -80));
+        movement2.add(new Animation("idle2.png", 8, 144, 283, -40));
+        movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -44));
+        movement2.add(new Animation("walkforward2.png", 10, 214, 286, -44));
         
-        movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -80));
-        movement2.add(new Animation("block.png", 8, 213, 286, -80));
+        movement2.add(new Animation("hit2.png", 4, 271, 289, -22));
+        movement2.add(new Animation("block2.png", 5, 137, 280, -41));
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack1);
         sol2.move(600, 0);
@@ -98,6 +99,7 @@ public class GameScreen implements Screen {
             sol2.moveForward();
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             sol2.moveBackward();
+            //sol2.Block();
         } else {
             sol2.notMove();
         }

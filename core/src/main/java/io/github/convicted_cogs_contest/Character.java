@@ -35,7 +35,7 @@ public class Character {
     public Character(SpriteBatch sb, ArrayList<Animation> movement, ArrayList<Move> attacks) {
         spriteBatch = sb;
         texture = new Texture("idle.png");
-        hitbox = new Rectangle(xPos, yPos, 100, 300);
+        hitbox = new Rectangle(xPos, yPos, 90, 300);
         speed = 10;
         xPos = 0;
         yPos = 0;
@@ -103,10 +103,10 @@ public class Character {
         hit = true;
         if (blocking == true) {
             health -= 3;
-            movementIndex = 3;
+            movementIndex = 4;
             return false;
         } else {
-            movementIndex = 4;
+            movementIndex = 3;
             health -= damage;
             return true;
         }
