@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
         movement1.add(new Animation("idle.png", 8, 144, 283, -14));
         movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
         movement1.add(new Animation("walkbackward.png", 8, 213, 281, -79));
-        movement1.add(new Animation("hit1.png", 4, 271, 289, -69));
+        movement1.add(new Animation("hit1.png", 4, 271, 289, -159));
         movement1.add(new Animation("block.png", 5, 137, 280, -6));
 
         ArrayList<Move> attack1 = new ArrayList<Move>();
@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
         //punchFrame.add(new DamageFrame(4, new Rectangle(0,0,98, 300)));
         
         attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0,0,90,300), punch));
-        //attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, ));
+        attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle (0,0,100,100), punch));
 
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -40));
