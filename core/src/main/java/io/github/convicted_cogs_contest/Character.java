@@ -90,6 +90,7 @@ public class Character {
             if (hit == true) {
                 hit = false;
                 blocking = false;
+                attacking = false;
             } else {
                 attacking = false;
             }
