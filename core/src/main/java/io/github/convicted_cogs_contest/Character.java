@@ -53,7 +53,7 @@ public class Character {
     public void draw() {
         if (stun == true) {
             if (hit == true) {
-                movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
+                movement.get(5).draw(spriteBatch, xPos, yPos);
                 setStun(movement.get(movementIndex));
             } else {
                 attacking = true;
@@ -75,6 +75,7 @@ public class Character {
         if (a.doneAnimation() == false) {
             stun = true;
             hit = false;
+            blocking = false;
         } else {
             stun = false;
         }
@@ -119,7 +120,9 @@ public class Character {
     
     public void moveForward() {
         movementIndex = 1;
-        xPos += speed;
+        if (hit == false && xPos <= 1500) {
+            xPos += speed;
+        }
     }
     
     public void notMove() {
@@ -129,7 +132,9 @@ public class Character {
     
     public void moveBackward() {
         movementIndex = 2;
-        xPos -= speed;
+        if (hit == false && xPos > 0) {
+            xPos -= speed;
+        }
     }
     
     public void move(int xPos, int yPos) {
