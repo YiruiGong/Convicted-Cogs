@@ -34,7 +34,7 @@ public class Main extends Game {
     public void input(){
         //System.out.println("X Val: " + Gdx.input.getX());
         //System.out.println("Y Val: " + Gdx.input.getY());
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) && getScreen() instanceof TitleScreen){
             this.setScreen(new GameScreen(this));
         } else if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 750 && Gdx.input.getY() > 700 && getScreen() instanceof TitleScreen){
             this.setScreen(new ControlScreen(this));
