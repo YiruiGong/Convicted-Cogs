@@ -50,8 +50,8 @@ public class ControlScreen implements Screen {
         Gdx.gl.glClearColor(0.3f,0,0,1);
         Gdx.gl.glClearColor(1, 0, 0, 1);
         title.draw(game.spriteBatch, "Controls", 800, 800);
-        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G",533, 700);
-        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M",1066, 700);
+        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G\nMove Backwards to block",533, 700);
+        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M\nMove backwards to block",1066, 700);
         exit.draw(game.spriteBatch, "Return to main screen",800, 200);
         game.spriteBatch.end();
     }

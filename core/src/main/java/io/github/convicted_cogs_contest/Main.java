@@ -8,6 +8,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -19,6 +21,7 @@ public class Main extends Game {
     public int screen;
     public GameScreen g;
     public boolean winScreenRun;
+    public FileWriter myWriter;
 
     @Override
     public void create() {
@@ -26,6 +29,12 @@ public class Main extends Game {
         this.setScreen(new TitleScreen(this));
         screen = 1;
         winScreenRun = false;
+        try {
+            FileWriter myWriter = new FileWriter("winners.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -63,7 +72,8 @@ public class Main extends Game {
             }
         } else if (screen == 4) {
             if (winScreenRun == false) {
-                this.setScreen(new WinScreen(this));
+
+                this.setScreen(new WinScreen(this, myWriter));
                 winScreenRun = true;
             }
         }
