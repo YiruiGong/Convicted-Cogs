@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
     Texture healthUI;
     Texture healthbar1;
     Texture healthbar2;
+    boolean win;
 
     Main game;
 
@@ -36,6 +37,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         //setScreen(new Titlev2(this));
+        win = false;
         viewport = new FitViewport(1600, 900);
         background = new Texture("Lars_Canyon.png");
         healthUI = new Texture("healthUI.png");
@@ -172,6 +174,12 @@ public class GameScreen implements Screen {
                 sol2.xPos += sol2.speed;
             }
         }
+        
+        if (sol1.getHealth() == 0 || sol2.getHealth() == 0) {
+            win = true;
+        } else {
+            win = false;
+        }
 //        float character1Width = sol1.getWidth();
 //        float character1Height = sol1.getHeight();
         //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));
@@ -209,6 +217,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
+    }
+    
+    public boolean getWin() {
+        return win;
     }
 
 }
