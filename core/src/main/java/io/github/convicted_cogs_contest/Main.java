@@ -18,13 +18,14 @@ public class Main extends Game {
     public SpriteBatch spriteBatch;
     public int screen;
     public GameScreen g;
+    public boolean winScreenRun;
 
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         this.setScreen(new TitleScreen(this));
         screen = 1;
-
+        winScreenRun = false;
     }
 
     @Override
@@ -61,7 +62,10 @@ public class Main extends Game {
                 screen = 4;
             }
         } else if (screen == 4) {
-            this.setScreen(new WinScreen(this));
+            if (winScreenRun == false) {
+                this.setScreen(new WinScreen(this));
+                winScreenRun = true;
+            }
         }
     }
 
