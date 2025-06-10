@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,8 +21,12 @@ public class Main extends Game {
     public SpriteBatch spriteBatch;
     public int screen;
     public GameScreen g;
+    public WinScreen w;
     public boolean winScreenRun;
     public FileWriter myWriter;
+    public boolean win;
+    public ArrayList<User> users;
+    public boolean restart;
 
     @Override
     public void create() {
@@ -29,6 +34,7 @@ public class Main extends Game {
         this.setScreen(new TitleScreen(this));
         screen = 1;
         winScreenRun = false;
+        restart = true;
         try {
             FileWriter myWriter = new FileWriter("winners.txt");
         } catch (IOException e) {
@@ -51,7 +57,7 @@ public class Main extends Game {
         if (screen == 1) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && getScreen() instanceof TitleScreen) {
                 g = new GameScreen(this);
-                this.setScreen(g);
+                
 
                 screen = 3;
             } else if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 750 && Gdx.input.getY() > 700 && getScreen() instanceof TitleScreen) {
@@ -66,16 +72,26 @@ public class Main extends Game {
 
             }
         } else if (screen == 3) {
+            this.setScreen(g);
             boolean win = g.getWin();
             if (win == true) {
                 screen = 4;
             }
         } else if (screen == 4) {
             if (winScreenRun == false) {
-
-                this.setScreen(new WinScreen(this, myWriter));
+                w = new WinScreen(this, users);
                 winScreenRun = true;
             }
+            w.setRestart(restart);
+            this.setScreen(w);
+            
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+                g = new GameScreen(this);
+                screen = 3;
+                win = false;
+                restart = true;
+            }
+            
         }
     }
 
@@ -88,3 +104,4 @@ public class Main extends Game {
     }
 
 }
+
