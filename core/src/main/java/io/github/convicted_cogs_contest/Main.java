@@ -57,8 +57,7 @@ public class Main extends Game {
         if (screen == 1) {
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && getScreen() instanceof TitleScreen) {
                 g = new GameScreen(this);
-                
-
+                this.setScreen(g);
                 screen = 3;
             } else if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 750 && Gdx.input.getY() > 700 && getScreen() instanceof TitleScreen) {
                 this.setScreen(new ControlScreen(this));
@@ -72,7 +71,7 @@ public class Main extends Game {
 
             }
         } else if (screen == 3) {
-            this.setScreen(g);
+            
             boolean win = g.getWin();
             if (win == true) {
                 screen = 4;
@@ -80,16 +79,21 @@ public class Main extends Game {
         } else if (screen == 4) {
             if (winScreenRun == false) {
                 w = new WinScreen(this, users);
+                this.setScreen(w);
                 winScreenRun = true;
             }
+            if (restart = true) {
             w.setRestart(restart);
             this.setScreen(w);
+            }
+            
             
             if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
                 g = new GameScreen(this);
                 screen = 3;
                 win = false;
                 restart = true;
+                this.setScreen(g);
             }
             
         }
