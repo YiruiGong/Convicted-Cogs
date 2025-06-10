@@ -35,12 +35,7 @@ public class Main extends Game {
         screen = 1;
         winScreenRun = false;
         restart = true;
-        try {
-            FileWriter myWriter = new FileWriter("winners.txt");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+ 
     }
 
     @Override
@@ -70,29 +65,21 @@ public class Main extends Game {
                 screen = 1;
 
             }
-        } else if (screen == 3) {
+        }
+        else if (screen == 3) {
             
             boolean win = g.getWin();
             if (win == true) {
                 screen = 4;
-            }
-        } else if (screen == 4) {
-            if (winScreenRun == false) {
                 w = new WinScreen(this, users);
                 this.setScreen(w);
-                winScreenRun = true;
             }
-            if (restart = true) {
-            w.setRestart(restart);
-            this.setScreen(w);
-            }
+        } else if (screen == 4) { 
             
-            
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)&& Gdx.input.getX() > 800 && Gdx.input.getX() < 1500 && Gdx.input.getY() < 250 && Gdx.input.getY() > 200 && getScreen() instanceof WinScreen) {
                 g = new GameScreen(this);
                 screen = 3;
                 win = false;
-                restart = true;
                 this.setScreen(g);
             }
             

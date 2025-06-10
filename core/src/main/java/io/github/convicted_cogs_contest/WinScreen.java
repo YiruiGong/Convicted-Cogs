@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +36,8 @@ public class WinScreen implements Screen {
     BitmapFont winner;
     FileWriter winnerWriter;
     boolean restart;
-
+    String display;
+    ArrayList<User> users;
     Main game;
 
     public WinScreen(Main game, ArrayList<User> users) {
@@ -45,6 +47,7 @@ public class WinScreen implements Screen {
 
     @Override
     public void show() {
+        System.out.println("a");
         //Load Fonts and textures
         background = new Texture("background.png");
         Win = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
@@ -54,19 +57,7 @@ public class WinScreen implements Screen {
         Rematch = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         Credits = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         winner = new BitmapFont();
-        name = JOptionPane.showInputDialog("Enter Winner's Name:");
-        if (restart == true) {
-            
-        }
-        try {
-            winnerWriter = new FileWriter("src/io.github.convicted_cogs_contest/winners.txt");
-            winnerWriter.write(name);
-            winnerWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        restart = true;
         //Scale the size of the fonts
         Win.getData().scale(0);
         Player1Win.getData().scale(0);
@@ -74,41 +65,71 @@ public class WinScreen implements Screen {
         ReturnToMainMenu.getData().scale(0);
         Rematch.getData().scale(0);
         Credits.getData().scale(0);
-    }
-    
-    public void setRestart(boolean restart) {
-        this.restart = restart;
+        display = "";
+        users = new ArrayList<User>();
     }
 
-    public void search(String name) {
-        
+    public void write() {
+        name = JOptionPane.showInputDialog("Enter Winner's Name:");
+        int a = search();
+        if (a == -1) {
+            try {
+                winnerWriter = new FileWriter("src/io.github.convicted_cogs_contest/winners.txt");
+                for (int i = 0; i < users.size(); i++) {
+                    if (i != users.size() - 1) {
+                        winnerWriter.write(users.get(i).getName() + "\n" + users.get(i).wins + "\n");
+                    }
+                    winnerWriter.write(users.get(i).getName() + "\n" + users.get(i).wins);
+
+                }
+                winnerWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void read() {
+        try {
+            InputStream f = WinScreen.class.getResourceAsStream("winners.txt");
+            Scanner s = new Scanner(f);
+            while (s.hasNextLine()) {
+                users.add(new User(s.nextLine(), Integer.parseInt(s.nextLine())));
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public int search() {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getName() == name) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public void render(float a) {
         //render the Textures and Fonts 
-        String display = "";
-        try {
-            File f = new File("src/io.github.convicted_cogs_contest/winners.txt");
-            Scanner s = new Scanner(f);
-            while (s.hasNextLine()) {
-                display += s.nextLine();
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: " + e);
-        }
 
         game.spriteBatch.begin();
 
         game.spriteBatch.draw(background, 0, 0);
         Win.draw(game.spriteBatch, "You Win!", 800, 700);
         ReturnToMainMenu.draw(game.spriteBatch, "Main Menu", 100, 200);
-        Rematch.draw(game.spriteBatch, "Rematch", 1500, 200);
+        Rematch.draw(game.spriteBatch, "Rematch", 800, 200);
         Credits.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 800, 500);
 
         winner.draw(game.spriteBatch, display, 100, 400);
         game.spriteBatch.end();
-
+        if (restart == true) {
+            write();
+            restart = false;
+        }
     }
 
     @Override
