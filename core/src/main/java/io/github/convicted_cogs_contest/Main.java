@@ -48,8 +48,8 @@ public class Main extends Game {
     }
 
     public void input() {
-//        System.out.println("X Val: " + Gdx.input.getX());
-//        System.out.println("Y Val: " + Gdx.input.getY());
+        System.out.println("X Val: " + Gdx.input.getX());
+        System.out.println("Y Val: " + Gdx.input.getY());
         if (screen == 1) {
             //When the user is on the title screen and presses space bar the user will go to the fight screen
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && getScreen() instanceof TitleScreen) {
@@ -87,8 +87,7 @@ public class Main extends Game {
                 screen = 1;
             }
             //if the user is on the win screen and want to rematch then the user will have to press a button to rematch
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)&& Gdx.input.getX() > 1000 && Gdx.input.getX() < 1500 && Gdx.input.getY() < 630 && Gdx.input.getY() > 580 && getScreen() instanceof WinScreen) {
-                g = new GameScreen(this);
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
                 screen = 3;
                 win = false;
                 this.setScreen(g);

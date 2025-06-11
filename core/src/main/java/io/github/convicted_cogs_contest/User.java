@@ -21,7 +21,15 @@ public class User {
         return name;
     }
     
+    public int getWins() {
+        return wins;
+    }
+    
+    public void addWins(int win) {
+        wins += win;
+    }
+    
     public String toString() {
-        return name + "\n" + wins;
+        return "Name: " + name + "        Wins:" + wins;
     }
 }
