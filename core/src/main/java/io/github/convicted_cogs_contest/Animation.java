@@ -1,7 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+Yirui Gong
+
+*/
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -12,7 +12,6 @@ public class Animation {
     protected Texture images;
     protected int numFrames;
     protected int currentFrame;
-    protected Texture frameImage;
     protected int frameHeight;
     protected int frameWidth;
     protected SpriteBatch spriteBatch;
@@ -23,7 +22,6 @@ public class Animation {
         images = new Texture(imageName);
         this.numFrames = numFrames;
         currentFrame = 1;
-        frameImage = new Texture(imageName);
         this.frameHeight = frameHeight;
         this.frameWidth = frameWidth;
         this.xOffset = xOffset;

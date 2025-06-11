@@ -15,8 +15,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  */
 public class TitleScreen implements Screen{
     private BitmapFont font;
-    private BitmapFont toControlScreen;
-    private BitmapFont toFightScreen;
     private Texture Cog;
     private Texture background;
     
@@ -34,8 +32,6 @@ public class TitleScreen implements Screen{
         Cog.dispose();
         background.dispose();
         font.dispose();
-        toFightScreen.dispose();
-        toControlScreen.dispose();
     }
 
     @Override
@@ -44,12 +40,8 @@ public class TitleScreen implements Screen{
         Cog = new Texture("cog.png");
         background = new Texture("background.png");
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        toControlScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        toFightScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         //Scale all of the text to the right size
-        font.getData().scale(0);
-        toControlScreen.getData().scale(0);
-        toFightScreen.getData().scale(0);    }
+        font.getData().scale(0);   }
 
     @Override
     public void render(float f) {
@@ -58,8 +50,8 @@ public class TitleScreen implements Screen{
         game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(Cog, 100, 100);
         font.draw(game.spriteBatch, "Convicted Cogs Contest",680,550);
-        toFightScreen.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
-        toControlScreen.draw(game.spriteBatch, "Click Here for Controls", 680, 200);
+        font.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
+        font.draw(game.spriteBatch, "Click Here for Controls", 680, 200);
         
         game.spriteBatch.end();    
     }

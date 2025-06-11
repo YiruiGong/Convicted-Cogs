@@ -1,7 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+Yirui Gong & Thomas Filsinger
+
+*/
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -57,10 +57,6 @@ public class Character {
         hit = false;
         blocking = false;
         attacking = false;
-    }
-
-    public Texture getTexture() {
-        return texture;
     }
 
     public void draw() {
@@ -127,8 +123,7 @@ public class Character {
         this.blocking = blocking;
     }
 
-    public void isHit(boolean collision, int damage) {
-
+    public void isHit(int damage) {
         stun = true;
         if (hit == false) {
             if (blocking == true) {
@@ -168,7 +163,7 @@ public class Character {
         moving = true;
     }
 
-    public void move(int xPos, int yPos) {
+    public void moveCharacter(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
     }
@@ -208,7 +203,4 @@ public class Character {
     public void setyPos(int move) {
         this.yPos += move;
     }
-    
-    
-
 }

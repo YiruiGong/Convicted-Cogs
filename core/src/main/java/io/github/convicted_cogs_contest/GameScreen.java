@@ -1,13 +1,14 @@
+/*
+Yirui Gong & Thomas Filsinger
+
+*/
 package io.github.convicted_cogs_contest;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -52,6 +53,7 @@ public class GameScreen implements Screen {
         movement1.add(new Animation("block.png", 5, 137, 280, -6));
 
         ArrayList<Move> attack1 = new ArrayList<Move>();
+        
         ArrayList<Integer> punch = new ArrayList<Integer>();
         punch.add(3);
         punch.add(4);
@@ -73,19 +75,15 @@ public class GameScreen implements Screen {
         movement2.add(new Animation("block2.png", 5, 137, 280, -41));
 
         ArrayList<Move> attack2 = new ArrayList<Move>();
-        ArrayList<Integer> punch2 = new ArrayList<Integer>();
-        punch2.add(3);
-        punch2.add(4);
-        punch2.add(5);
-
-        attack2.add(new Move("punch2.png", 7, 220, 279, -102, 20, new Rectangle (0, 0, 90, 300), punch2));
+        
+        attack2.add(new Move("punch2.png", 7, 220, 279, -102, 20, new Rectangle (0, 0, 90, 300), punch));
         attack2.add(new Move("kick2.png", 8, 278, 280, -123, 40, new Rectangle(0, 0, 110, 100), kick));
         
         
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack2);
-        sol1.move(500, 100);
-        sol2.move(1600 - sol2.getWidth() - 500, 100);
+        sol1.moveCharacter(500, 100);
+        sol2.moveCharacter(1600 - sol2.getWidth() - 500, 100);
 
     }
 
@@ -102,8 +100,6 @@ public class GameScreen implements Screen {
     }
 
     public void input() {
-
-        float delta = Gdx.graphics.getDeltaTime();
         if (sol1.getStun() == false) {
             if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 sol1.moveRight();
@@ -114,7 +110,6 @@ public class GameScreen implements Screen {
             } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
                 sol1.attack(1);
             } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                //sol1.Block();
             } else {
                 sol1.notMove();
             }
@@ -146,21 +141,17 @@ public class GameScreen implements Screen {
     }
 
     public void logic() {
-        float worldWidth = viewport.getWorldWidth();
-        float worldHeight = viewport.getWorldHeight();
         if (sol1.isAttacking() == true) {
             Rectangle hurtbox = sol1.getAttack().get(sol1.getAttackIndex()).dealDamage(sol1.getxPos() + 90, sol1.getyPos());
             if (hurtbox.overlaps(sol2.getHitbox())) {
-                sol2.isHit(true, sol1.getAttack().get(sol1.getAttackIndex()).getDamage());
-                System.out.println("hit");
+                sol2.isHit(sol1.getAttack().get(sol1.getAttackIndex()).getDamage());
             }
         }
 
         if (sol2.isAttacking() == true) {
             Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - 90, sol2.getyPos());
             if (hurtbox.overlaps(sol1.getHitbox())) {
-                sol1.isHit(true, sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
-                System.out.println("hit");
+                sol1.isHit(sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
             }
         }
         
@@ -180,9 +171,6 @@ public class GameScreen implements Screen {
         } else {
             win = false;
         }
-//        float character1Width = sol1.getWidth();
-//        float character1Height = sol1.getHeight();
-        //character1Sprite.setX(MathUtils.clamp(character1Sprite.getX(), 0, worldWidth - character1Width));
     }
 
     public void draw() {

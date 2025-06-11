@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package io.github.convicted_cogs_contest;
-//Load imports
 
+//Load imports
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,100 +14,73 @@ import java.io.FileNotFoundException;
 import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.io.FileWriter;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import javax.swing.JFileChooser;
 
-/**
- *
- * @author Administrator
- */
+
 public class WinScreen implements Screen {
 
     //Private Attributes such as fonts and a texture
-    private BitmapFont Win;
-    private BitmapFont Player1Win;
-    private BitmapFont Player2Win;
-    private BitmapFont ReturnToMainMenu;
-    private BitmapFont Rematch;
-    private BitmapFont Credits;
+    private BitmapFont font;
     private Texture background;
-    private String name = "";
-    private BitmapFont winner;
-    private FileWriter winnerWriter;
+    private BitmapFont leaderboard;
     private boolean restart;
-    private String display;
     private ArrayList<User> users;
     private Main game;
-    private JFileChooser fileChooser;
     private File file;
 
     //Contructor to make the screen run
-    public WinScreen(Main game, ArrayList<User> users) {
+    public WinScreen(Main game) {
         this.game = game;
-        //winnerWriter = w;
     }
 
     @Override
     public void show() {
         //Load Fonts and textures
         background = new Texture("background.png");
-        Win = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        Player1Win = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        Player2Win = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        ReturnToMainMenu = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        Rematch = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        Credits = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        winner = new BitmapFont();
-        restart = true;
+        font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        leaderboard = new BitmapFont();
         //Scale the size of the fonts
-        Win.getData().scale(0);
-        Player1Win.getData().scale(0);
-        Player2Win.getData().scale(0);
-        ReturnToMainMenu.getData().scale(0);
-        Rematch.getData().scale(0);
-        Credits.getData().scale(0);
+        font.getData().scale(0);
         //create display and users to store user names
-        display = "";
         users = new ArrayList<User>();
-        fileChooser = new JFileChooser();
         //file = new File("src/main/java/io/github/convicted_cogs_contest/winners.txt");
         file = new File(System.getProperty("user.home") + "/winners.txt");
         //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        restart = true;
     }
 
     //Contructor to write the user into the file 
-    public void write() {
-        read();
-        name = JOptionPane.showInputDialog("Enter Winner's Name:");
-        int a = search();
-        if (a == -1) {
+    public void loadLeaderboard() {
+        readFile();
+        String name = JOptionPane.showInputDialog("Enter Winner's Name:");
+        int userIndex = searchArray(name);
+        if (userIndex == -1) {
             users.add(new User(name, 1));
-            System.out.println("b");
         } else {
-            users.get(a).addWins(1);
+            users.get(userIndex).addWinNum(1);
         }
-        users = quickSort(users, 0, users.size() - 1);
+        users = quickSortFile(users, 0, users.size() - 1);
+    }
+
+    public void writeFile() {
         try {
             new FileWriter(System.getProperty("user.home") + "/winners.txt", false).close();
-            winnerWriter = new FileWriter(file);
+            FileWriter winnerWriter = new FileWriter(file);
             for (int i = 0; i < users.size(); i++) {
-                winnerWriter.write(users.get(i).getName() + "\n" + users.get(i).wins + "\n");
+                winnerWriter.write(users.get(i).getName() + "\n" + users.get(i).getWinNum() + "\n");
 
             }
             winnerWriter.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-
     }
-
+    
     //Method ot read from the winners.txt file 
-    public void read() {
+    public void readFile() {
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
@@ -121,7 +94,7 @@ public class WinScreen implements Screen {
     }
 
     //Method to search for a user in the winners.txt
-    public int search() {
+    public int searchArray(String name) {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getName().equals(name)) {
                 return i;
@@ -130,16 +103,15 @@ public class WinScreen implements Screen {
         return -1;
     }
 
-    public ArrayList<User> quickSort(ArrayList<User> items, int start, int end) {
+    public ArrayList<User> quickSortFile(ArrayList<User> items, int start, int end) {
         // Base case for recursion:
         // The recursion will stop when the partition contains a single item
         if (start >= end) {
-            System.out.println("s");
             return items;
             
         } // Otherwise recursively call the function
         else {
-            int pivotValue = items.get(start).getWins(); // Set to first item in the partition
+            int pivotValue = items.get(start).getWinNum(); // Set to first item in the partition
             int lowMark = start + 1; // Set to second position in the partition
             int highMark = end; // Set to last position in the partition
             User temp;
@@ -148,12 +120,12 @@ public class WinScreen implements Screen {
             // Repeat until low and high values have been swapped as needed
             while (finished == false) {
                 // Move the left pivot
-                while (lowMark <= highMark && items.get(lowMark).getWins() >= pivotValue) {
+                while (lowMark <= highMark && items.get(lowMark).getWinNum() >= pivotValue) {
                     lowMark = lowMark + 1; // Increment lowMark
                 }
 
                 // Move the right pivot
-                while (items.get(highMark).getWins() <= pivotValue && highMark >= lowMark) {
+                while (items.get(highMark).getWinNum() <= pivotValue && highMark >= lowMark) {
                     highMark = highMark - 1; // Decrement highMark
                 }
 
@@ -175,10 +147,10 @@ public class WinScreen implements Screen {
             items.set(highMark, temp);
 
             // Recursive call on the left partition
-            quickSort(items, start, highMark - 1);
+            quickSortFile(items, start, highMark - 1);
 
             // Recursive call on the right partition
-            quickSort(items, highMark + 1, end);
+            quickSortFile(items, highMark + 1, end);
 
             return items;
         }
@@ -187,23 +159,24 @@ public class WinScreen implements Screen {
     @Override
     public void render(float a) {
         //render the Textures and Fonts 
-        display = "";
+        String display = "";
         for (int i = 0; i < users.size(); i ++) {
             display += users.get(i).toString() + "\n";
         }
         game.spriteBatch.begin();
 
         game.spriteBatch.draw(background, 0, 0);
-        Win.draw(game.spriteBatch, "You Win!", 800, 700);
-        ReturnToMainMenu.draw(game.spriteBatch, "Main Menu", 100, 200);
-        Rematch.draw(game.spriteBatch, "Rematch", 1200, 200);
-        Credits.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
+        font.draw(game.spriteBatch, "You Win!", 800, 700);
+        font.draw(game.spriteBatch, "Main Menu", 100, 200);
+        font.draw(game.spriteBatch, "Rematch", 1200, 200);
+        font.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
 
-        winner.draw(game.spriteBatch, display, 100, 600);
+        leaderboard.draw(game.spriteBatch, display, 100, 600);
         game.spriteBatch.end();
         //When  winner screen shows up user will be prompted with a JOptionPane where the write method will run
         if (restart == true) {
-            write();
+            users = new ArrayList<User>();
+            loadLeaderboard();
             restart = false;
         }
     }
@@ -227,17 +200,16 @@ public class WinScreen implements Screen {
     public void hide() {
 
     }
+    
+    public void setRestart(boolean restart) {
+        this.restart = restart;
+    }
 
     @Override
     public void dispose() {
         //Dispose of the screen when switching screens
         game.spriteBatch.dispose();
-        Win.dispose();
-        Player1Win.dispose();
-        Player2Win.dispose();
+        font.dispose();
         background.dispose();
-        ReturnToMainMenu.dispose();
-        Rematch.dispose();
     }
-
 }

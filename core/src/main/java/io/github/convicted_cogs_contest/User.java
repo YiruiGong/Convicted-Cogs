@@ -4,32 +4,29 @@
  */
 package io.github.convicted_cogs_contest;
 
-/**
- *
- * @author gongm
- */
+
 public class User {
-    String name;
-    int wins;
+    private String name;
+    int winNum;
     
-    public User(String name, int wins) {
+    public User(String name, int winNum) {
         this.name = name;
-        this.wins = wins;
+        this.winNum = winNum;
     }
     
     public String getName() {
         return name;
     }
     
-    public int getWins() {
-        return wins;
+    public int getWinNum() {
+        return winNum;
     }
     
-    public void addWins(int win) {
-        wins += win;
+    public void addWinNum(int winNum) {
+        winNum += winNum;
     }
     
     public String toString() {
-        return "Name: " + name + "        Wins:" + wins;
+        return "Name: " + name + "\t\t\t" + "WinNums: " + winNum;
     }
 }
