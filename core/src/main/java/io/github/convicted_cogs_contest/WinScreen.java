@@ -194,10 +194,11 @@ public class WinScreen implements Screen {
         game.spriteBatch.begin();
 
         game.spriteBatch.draw(background, 0, 0);
-        Win.draw(game.spriteBatch, "You Win!", 800, 700);
+        Win.draw(game.spriteBatch, "You Win!", 600, 700);
         ReturnToMainMenu.draw(game.spriteBatch, "Main Menu", 100, 200);
         Rematch.draw(game.spriteBatch, "Rematch", 1200, 200);
-        Credits.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 800, 500);
+        Credits.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
+
         winner.draw(game.spriteBatch, display, 100, 400);
         game.spriteBatch.end();
         //When  winner screen shows up user will be prompted with a JOptionPane where the write method will run
