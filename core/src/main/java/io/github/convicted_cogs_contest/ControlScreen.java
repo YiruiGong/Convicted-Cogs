@@ -47,9 +47,9 @@ public class ControlScreen implements Screen {
         //Display background and text onto the screen
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
-        title.draw(game.spriteBatch, "Controls", 800, 800);
-        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G\nMove Backward \n to block",533, 700);
-        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M\nMove backward \n to block",1066, 700);
+        title.draw(game.spriteBatch, "Controls", 650, 800);
+        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G\nMove Backward \n to block",333, 700);
+        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M\nMove backward \n to block",866, 700);
         exit.draw(game.spriteBatch, "Return to main screen",800, 200);
         game.spriteBatch.end();
         
