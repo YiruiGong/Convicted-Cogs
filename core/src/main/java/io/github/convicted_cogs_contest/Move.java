@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * @author gongm
  */
 public class Move extends Animation {
-    int damage;
+    private int damage;
     //ArrayList<DamageFrame> dFrames = new ArrayList<DamageFrame>();
-    ArrayList<Integer> dFrames;
-    int dFrameIndex;
-    Rectangle hurtbox;
+    private ArrayList<Integer> dFrames;
+    private int dFrameIndex;
+    private Rectangle hurtbox;
     
     public Move(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset, int damage, Rectangle hurtbox, ArrayList<Integer> dFrames) {
         super(imageName, numFrames, frameWidth, frameHeight, xOffset);

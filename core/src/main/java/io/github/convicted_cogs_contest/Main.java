@@ -18,14 +18,14 @@ import java.util.ArrayList;
 public class Main extends Game {
     //Set up public Attributes 
     public SpriteBatch spriteBatch;
-    public int screen;
-    public GameScreen g;
-    public WinScreen w;
-    public boolean winScreenRun;
-    public FileWriter myWriter;
-    public boolean win;
+    private int screen;
+    private GameScreen g;
+    private WinScreen w;
+    private boolean winScreenRun;
+    private FileWriter myWriter;
+    private boolean win;
     public ArrayList<User> users;
-    public boolean restart;
+    private boolean restart;
 
     @Override
     public void create() {

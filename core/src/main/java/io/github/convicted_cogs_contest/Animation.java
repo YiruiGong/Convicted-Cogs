@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Animation {
     
-    Texture images;
-    int numFrames;
-    int currentFrame;
-    Texture frameImage;
-    int frameHeight;
-    int frameWidth;
-    SpriteBatch spriteBatch;
-    int xOffset;
+    protected Texture images;
+    protected int numFrames;
+    protected int currentFrame;
+    protected Texture frameImage;
+    protected int frameHeight;
+    protected int frameWidth;
+    protected SpriteBatch spriteBatch;
+    protected int xOffset;
     
     
     public Animation(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset) {

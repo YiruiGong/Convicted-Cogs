@@ -11,30 +11,30 @@ import java.util.ArrayList;
 
 public class Character {
 
-    Texture texture;
-    Rectangle hitbox;
+    private Texture texture;
+    private Rectangle hitbox;
 
-    int speed;
-    boolean moving;
+    private int speed;
+    private boolean moving;
 
-    SpriteBatch spriteBatch;
+    private SpriteBatch spriteBatch;
 
-    int xPos;
-    int yPos;
+    private int xPos;
+    private int yPos;
 
-    int health;
-    ArrayList<Move> attack;
-    int attackIndex;
+    private int health;
+    private ArrayList<Move> attack;
+    private int attackIndex;
 
-    ArrayList<Animation> movement;
-    int movementIndex;
+    private ArrayList<Animation> movement;
+    private int movementIndex;
 
-    boolean blocking;
-    boolean hit;
-    boolean stun;
-    boolean attacking;
+    private boolean blocking;
+    private boolean hit;
+    private boolean stun;
+    private boolean attacking;
 
-    int width;
+    private int width;
 
     public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacks) {
         this.spriteBatch = spriteBatch;
@@ -176,5 +176,39 @@ public class Character {
     public int getAttackIndex() {
         return attackIndex;
     }
+
+    public ArrayList<Move> getAttack() {
+        return attack;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
+
+    public void setxPos(int move) {
+        this.xPos += move;
+    }
+
+    public void setyPos(int move) {
+        this.yPos += move;
+    }
+    
+    
 
 }

@@ -19,14 +19,14 @@ import java.util.ArrayList;
  */
 public class GameScreen implements Screen {
 
-    FitViewport viewport;
-    Character sol1;
-    Character sol2;
-    Texture background;
-    Texture healthUI;
-    Texture healthbar1;
-    Texture healthbar2;
-    boolean win;
+    private FitViewport viewport;
+    private Character sol1;
+    private Character sol2;
+    private Texture background;
+    private Texture healthUI;
+    private Texture healthbar1;
+    private Texture healthbar2;
+    private boolean win;
 
     Main game;
 
@@ -148,30 +148,30 @@ public class GameScreen implements Screen {
     public void logic() {
         float worldWidth = viewport.getWorldWidth();
         float worldHeight = viewport.getWorldHeight();
-        if (sol1.attacking == true) {
-            Rectangle hurtbox = sol1.attack.get(sol1.attackIndex).dealDamage(sol1.xPos + 90, sol1.yPos);
-            if (hurtbox.overlaps(sol2.hitbox)) {
-                sol2.isHit(true, sol1.attack.get(sol1.attackIndex).getDamage());
+        if (sol1.isAttacking() == true) {
+            Rectangle hurtbox = sol1.getAttack().get(sol1.getAttackIndex()).dealDamage(sol1.getxPos() + 90, sol1.getyPos());
+            if (hurtbox.overlaps(sol2.getHitbox())) {
+                sol2.isHit(true, sol1.getAttack().get(sol1.getAttackIndex()).getDamage());
                 System.out.println("hit");
             }
         }
 
-        if (sol2.attacking == true) {
-            Rectangle hurtbox = sol2.attack.get(sol2.attackIndex).dealDamage(sol2.xPos - 90, sol2.yPos);
-            if (hurtbox.overlaps(sol1.hitbox)) {
-                sol1.isHit(true, sol2.attack.get(sol2.attackIndex).getDamage());
+        if (sol2.isAttacking() == true) {
+            Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - 90, sol2.getyPos());
+            if (hurtbox.overlaps(sol1.getHitbox())) {
+                sol1.isHit(true, sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
                 System.out.println("hit");
             }
         }
         
-        if (sol1.hitbox.overlaps(sol2.hitbox)) {
-            if (sol1.moving == true && sol2.moving == false) {
-                sol1.xPos -= sol1.speed;
-            } else if (sol2.moving == true && sol1.moving == false) {
-                sol2.xPos += sol2.speed;
+        if (sol1.getHitbox().overlaps(sol2.getHitbox())) {
+            if (sol1.isMoving() == true && sol2.isMoving() == false) {
+                sol1.setxPos(-sol1.getSpeed());
+            } else if (sol2.isMoving() == true && sol1.isMoving() == false) {
+                sol2.setxPos(sol2.getSpeed());
             } else {
-                sol1.xPos -= sol1.speed;
-                sol2.xPos += sol2.speed;
+                sol1.setxPos(-sol1.getSpeed());
+                sol2.setxPos(sol2.getSpeed());
             }
         }
         
