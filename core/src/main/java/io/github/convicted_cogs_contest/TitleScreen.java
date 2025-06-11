@@ -16,15 +16,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author Administrator
  */
 public class TitleScreen implements Screen{
-    BitmapFont font;
-    BitmapFont toControlScreen;
-    BitmapFont toFightScreen;
-    Texture Cog;
-    Texture background;
+    private BitmapFont font;
+    private BitmapFont toControlScreen;
+    private BitmapFont toFightScreen;
+    private Texture Cog;
+    private Texture background;
     
    
     Main game;
-    
+    //Main class is able to use Title Screen
     public TitleScreen(Main game) {
         this.game = game;
     }
@@ -42,23 +42,23 @@ public class TitleScreen implements Screen{
 
     @Override
     public void show() {
+        //load all textures and fonts
         Cog = new Texture("cog.png");
         background = new Texture("background.png");
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         toControlScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         toFightScreen = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
+        //Scale all of the text to the right size
         font.getData().scale(0);
         toControlScreen.getData().scale(0);
         toFightScreen.getData().scale(0);    }
 
     @Override
     public void render(float f) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Render all of the textures and fonts for the user to see
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(Cog, 100, 100);
-        Gdx.gl.glClearColor(0.3f,0,0,1);
-        Gdx.gl.glClearColor(1, 0, 0, 1);
         font.draw(game.spriteBatch, "Convicted Cogs Contest",680,550);
         toFightScreen.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
         toControlScreen.draw(game.spriteBatch, "Click Here for Controls", 680, 200);

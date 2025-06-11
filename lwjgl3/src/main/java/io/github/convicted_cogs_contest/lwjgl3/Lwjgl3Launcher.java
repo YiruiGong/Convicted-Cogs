@@ -1,11 +1,9 @@
 package io.github.convicted_cogs_contest.lwjgl3;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.github.convicted_cogs_contest.Main;
-import io.github.convicted_cogs_contest.TitleScreen;
+
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {

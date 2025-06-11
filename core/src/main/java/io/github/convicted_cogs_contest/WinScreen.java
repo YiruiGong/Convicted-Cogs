@@ -10,8 +10,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import javax.swing.JOptionPane;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -25,21 +23,22 @@ import java.util.Scanner;
 public class WinScreen implements Screen {
 
     //Private Attributes such as fonts and a texture
-    BitmapFont Win;
-    BitmapFont Player1Win;
-    BitmapFont Player2Win;
-    BitmapFont ReturnToMainMenu;
-    BitmapFont Rematch;
-    BitmapFont Credits;
-    Texture background;
-    String name = "";
-    BitmapFont winner;
-    FileWriter winnerWriter;
-    boolean restart;
-    String display;
-    ArrayList<User> users;
-    Main game;
-
+    private BitmapFont Win;
+    private BitmapFont Player1Win;
+    private BitmapFont Player2Win;
+    private BitmapFont ReturnToMainMenu;
+    private BitmapFont Rematch;
+    private BitmapFont Credits;
+    private Texture background;
+    private String name = "";
+    private BitmapFont winner;
+    private FileWriter winnerWriter;
+    private boolean restart;
+    private String display;
+    private ArrayList<User> users;
+    private Main game;
+    
+    //Contructor to make the screen run
     public WinScreen(Main game, ArrayList<User> users) {
         this.game = game;
         //winnerWriter = w;
@@ -65,10 +64,12 @@ public class WinScreen implements Screen {
         ReturnToMainMenu.getData().scale(0);
         Rematch.getData().scale(0);
         Credits.getData().scale(0);
+        //create display and users to store user names
         display = "";
         users = new ArrayList<User>();
     }
-
+    
+    //Contructor to write the user into the file 
     public void write() {
         name = JOptionPane.showInputDialog("Enter Winner's Name:");
         int a = search();
@@ -90,7 +91,8 @@ public class WinScreen implements Screen {
             }
         }
     }
-
+    
+    //Method ot read from the winners.txt file 
     public void read() {
         try {
             InputStream f = WinScreen.class.getResourceAsStream("winners.txt");
@@ -102,7 +104,8 @@ public class WinScreen implements Screen {
             System.out.println("Error: " + e);
         }
     }
-
+    
+    //Method to search for a user in the winners.txt
     public int search() {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getName() == name) {
@@ -121,11 +124,12 @@ public class WinScreen implements Screen {
         game.spriteBatch.draw(background, 0, 0);
         Win.draw(game.spriteBatch, "You Win!", 800, 700);
         ReturnToMainMenu.draw(game.spriteBatch, "Main Menu", 100, 200);
-        Rematch.draw(game.spriteBatch, "Rematch", 800, 200);
+        Rematch.draw(game.spriteBatch, "Rematch", 1200, 200);
         Credits.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 800, 500);
 
         winner.draw(game.spriteBatch, display, 100, 400);
         game.spriteBatch.end();
+        //When  winner screen shows up user will be prompted with a JOptionPane where the write method will run
         if (restart == true) {
             write();
             restart = false;

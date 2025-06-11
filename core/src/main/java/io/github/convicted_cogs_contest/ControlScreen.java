@@ -6,36 +6,36 @@ package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  *
  * @author gongm
  */
 public class ControlScreen implements Screen {
-    BitmapFont title;
-    BitmapFont ControlP1;
-    BitmapFont ControlP2;
-    BitmapFont exit;
-    Texture background;
+    //Private Attributes such as fonts and a texture
+    private BitmapFont title;
+    private BitmapFont ControlP1;
+    private BitmapFont ControlP2;
+    private BitmapFont exit;
+    private Texture background;
     
     Main game;
-    
+    //Makes it so that the Control screen is able to run in the Main class
     public ControlScreen(Main game) {
         this.game = game;
     }
     
     @Override
     public void show() {
+        //Loads all of the fonts by reading from a fnt
         title = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         ControlP1 = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         ControlP2 = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         exit = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         background = new Texture("background.png");
-        
+        //Scale all of the text how ever the deveolper wants
         title.getData().scale(0);
         ControlP1.getData().scale(0);
         ControlP2.getData().scale(0); 
@@ -44,16 +44,15 @@ public class ControlScreen implements Screen {
 
     @Override
     public void render(float f) {
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //Display background and text onto the screen
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
-        Gdx.gl.glClearColor(0.3f,0,0,1);
-        Gdx.gl.glClearColor(1, 0, 0, 1);
         title.draw(game.spriteBatch, "Controls", 800, 800);
-        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G\nMove Backwards to block",533, 700);
-        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M\nMove backwards to block",1066, 700);
+        ControlP1.draw(game.spriteBatch, "Move: WASD \nPunch: F\nKick: G\nMove Backward \n to block",533, 700);
+        ControlP2.draw(game.spriteBatch, "Move: Arrow keys \nPunch: N\nKick: M\nMove backward \n to block",1066, 700);
         exit.draw(game.spriteBatch, "Return to main screen",800, 200);
         game.spriteBatch.end();
+        
     }
 
     @Override
@@ -75,6 +74,7 @@ public class ControlScreen implements Screen {
 
     @Override
     public void dispose() {
+        //Dispose of the screen when switching screens
         game.spriteBatch.dispose();
         title.dispose();
         ControlP1.dispose();
