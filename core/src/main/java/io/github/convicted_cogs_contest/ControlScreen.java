@@ -16,20 +16,30 @@ public class ControlScreen implements Screen {
     private Texture background;
     
     Main game;
-    //Makes it so that the Control screen is able to run in the Main class
+    /**
+     * Makes it so that the Control screen is able to run in the Main class
+     * @param game game is from the Main.java and it was calls this class
+     */
     public ControlScreen(Main game) {
         this.game = game;
     }
-    
+    /**
+     * Loads all of the fonts by reading from a fnt
+     * Loads all of the textures from a png
+     * Scale all of the text how ever the deveolper wants
+     */
     @Override
     public void show() {
-        //Loads all of the fonts by reading from a fnt
+        
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         background = new Texture("background.png");
-        //Scale all of the text how ever the deveolper wants
         font.getData().scale(0);
     }
-
+    
+    /**
+     * Render the screen when provoked
+     * @param f 
+     */
     @Override
     public void render(float f) {
         //Display background and text onto the screen
@@ -43,26 +53,40 @@ public class ControlScreen implements Screen {
         
     }
 
+    /**
+     * Resize the screen when needed
+     * @param i Width of the screen
+     * @param i1 Length of the screen
+     */
     @Override
     public void resize(int i, int i1) {
     }
-
+    
+    /**
+     *  Will pause the screen
+     */
     @Override
     public void pause() {
     }
 
+    /**
+     * Will resume the screen if paused
+     */
     @Override
     public void resume() {
     }
-
+    /**
+     * Will hide screen elements.
+     */
     @Override
     public void hide() {
         
     }
-
+    /**
+     * Dispose of the screen when switching screens
+     */
     @Override
     public void dispose() {
-        //Dispose of the screen when switching screens
         game.spriteBatch.dispose();
         font.dispose();
         background.dispose();

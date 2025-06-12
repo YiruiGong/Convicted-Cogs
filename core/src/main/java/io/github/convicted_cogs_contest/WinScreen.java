@@ -20,7 +20,6 @@ import java.util.Scanner;
 
 
 public class WinScreen implements Screen {
-
     //Private Attributes such as fonts and a texture
     private BitmapFont font;
     private Texture background;
@@ -30,20 +29,25 @@ public class WinScreen implements Screen {
     private Main game;
     private File file;
 
-    //Contructor to make the screen run
+    /**
+     * Constructor to make the screen run
+     * @param game 
+     */
     public WinScreen(Main game) {
         this.game = game;
     }
-
+    
+    /**
+     * Load Fonts and textures
+     * Scale the size of the fonts
+     * create an Array List of user 
+     */
     @Override
     public void show() {
-        //Load Fonts and textures
         background = new Texture("background.png");
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         leaderboard = new BitmapFont();
-        //Scale the size of the fonts
         font.getData().scale(0);
-        //create display and users to store user names
         users = new ArrayList<User>();
         //file = new File("src/main/java/io/github/convicted_cogs_contest/winners.txt");
         file = new File(System.getProperty("user.home") + "/winners.txt");
@@ -51,7 +55,10 @@ public class WinScreen implements Screen {
         restart = true;
     }
 
-    //Contructor to write the user into the file 
+    
+    /**
+     * method to load the leader board by reading from a file and write the same file 
+     */
     public void loadLeaderboard() {
         readFile();
         String name = JOptionPane.showInputDialog("Enter Winner's Name:");
@@ -63,7 +70,10 @@ public class WinScreen implements Screen {
         }
         users = quickSortFile(users, 0, users.size() - 1);
     }
-
+    
+    /**
+     * Method to write a file
+     */
     public void writeFile() {
         try {
             new FileWriter(System.getProperty("user.home") + "/winners.txt", false).close();
@@ -79,7 +89,9 @@ public class WinScreen implements Screen {
         }
     }
     
-    //Method ot read from the winners.txt file 
+    /**
+     * Method to read from the winners.txt file 
+     */
     public void readFile() {
         try {
             Scanner s = new Scanner(file);
@@ -93,7 +105,11 @@ public class WinScreen implements Screen {
         }
     }
 
-    //Method to search for a user in the winners.txt
+    /**
+     * Method to search for a user in the winners.txt
+     * @param name when the user enters their name it will search for their name 
+     * @return either an int i or -1
+     */
     public int searchArray(String name) {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getName().equals(name)) {
@@ -155,10 +171,12 @@ public class WinScreen implements Screen {
             return items;
         }
     }
-
+    /**
+     * render the Textures and Fonts 
+     * @param a a variable that decides either if the screen is rendered or not
+     */
     @Override
     public void render(float a) {
-        //render the Textures and Fonts 
         String display = "";
         for (int i = 0; i < users.size(); i ++) {
             display += users.get(i).toString() + "\n";
@@ -166,7 +184,7 @@ public class WinScreen implements Screen {
         game.spriteBatch.begin();
 
         game.spriteBatch.draw(background, 0, 0);
-        font.draw(game.spriteBatch, "You Win!", 800, 700);
+        font.draw(game.spriteBatch, "You Win!", 650, 700);
         font.draw(game.spriteBatch, "Main Menu", 100, 200);
         font.draw(game.spriteBatch, "Rematch", 1200, 200);
         font.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
@@ -181,33 +199,53 @@ public class WinScreen implements Screen {
         }
     }
 
+    /**
+     * Resize the screen when needed
+     * @param i width of the screen
+     * @param i1 Length of the screen
+     */
     @Override
     public void resize(int i, int i1) {
 
     }
 
+    /**
+     *  Will pause the screen
+     */
     @Override
     public void pause() {
 
     }
 
+    /**
+     * Will resume the screen if paused
+     */
     @Override
     public void resume() {
 
     }
-
+    
+    /**
+     * Will hide screen elements.
+     */
     @Override
     public void hide() {
 
     }
     
+    /**
+     * 
+     * @param restart to check if restart is true or false
+     */
     public void setRestart(boolean restart) {
         this.restart = restart;
     }
-
+    
+    /**
+     * Dispose of the screen when switching screens
+     */
     @Override
     public void dispose() {
-        //Dispose of the screen when switching screens
         game.spriteBatch.dispose();
         font.dispose();
         background.dispose();
