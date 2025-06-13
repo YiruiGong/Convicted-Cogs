@@ -1,6 +1,5 @@
 /*
 Yirui Gong & Sahadad Ewaz
-
  */
 package io.github.convicted_cogs_contest;
 
