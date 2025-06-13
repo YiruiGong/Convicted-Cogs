@@ -1,5 +1,5 @@
 /*
-Yirui Gong & Thomas Filsinger
+Yirui Gong, Sahadad Ewaz, & Thomas Filsinger
 
  */
 package io.github.convicted_cogs_contest;
@@ -15,10 +15,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
- * platforms.
- */
 public class GameScreen implements Screen {
 
     private FitViewport viewport;
@@ -46,6 +42,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void show() {
+        //Load all assets
         p1Font = new BitmapFont();
         p1Font.setColor(2, 189, 152, 100);
 
@@ -58,53 +55,41 @@ public class GameScreen implements Screen {
         healthUI = new Texture("healthUI.png");
         healthbar1 = new Texture("healthbar_1.png");
         healthbar2 = new Texture("healthbar_2.png");
-
+        //character 1 animations
         ArrayList<Animation> movement1 = new ArrayList<Animation>();
         movement1.add(new Animation("idle1.png", 8, 144, 283, -14));
         movement1.add(new Animation("walkforward1.png", 10, 214, 286, -80));
         movement1.add(new Animation("walkbackward1.png", 8, 213, 281, -79));
         movement1.add(new Animation("hit1.png", 4, 271, 289, -159));
         movement1.add(new Animation("block1.png", 5, 137, 280, -6));
-
-        ArrayList<Move> attack1 = new ArrayList<Move>();
-
-//        ArrayList<Integer> punch = new ArrayList<Integer>();
-//        punch.add(3);
-//        punch.add(4);
-//        punch.add(5);
+        
+        //damage frame arrays
         int[] punch = {3, 4, 5};
         int[] kick = {4, 5};
         int[] slash = {5, 6, 7};
         int[] punch6 = {6, 7, 8};
-
-//        ArrayList<Integer> kick = new ArrayList<Integer>();
-//        kick.add(4);
-//        kick.add(5);
-//        ArrayList<Integer> punch6 = new ArrayList<Integer>();
-//        punch6.add(5);
-//        punch6.add(6);
-//        punch6.add(7);
-//        punch6.add(8);
+        
+        //character 1 attacks
+        ArrayList<Move> attack1 = new ArrayList<Move>();
         attack1.add(new Move("punch1.png", 7, 220, 279, -28, 10, new Rectangle(0, 0, 90, 300), punch));
         attack1.add(new Move("kick1.png", 8, 278, 280, -65, 20, new Rectangle(0, 0, 110, 300), kick));
         attack1.add(new Move("slash1.png", 14, 418, 281, -76, 25, new Rectangle(0, 0, 220, 300), slash));
         attack1.add(new Move("6punch1.png", 11, 276, 281, -67, 15, new Rectangle(0, 0, 100, 300), punch6));
-
+        //character 2 animations
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -40));
         movement2.add(new Animation("walkbackward2.png", 8, 213, 281, -44));
         movement2.add(new Animation("walkforward2.png", 10, 214, 286, -44));
-
         movement2.add(new Animation("hit2.png", 4, 271, 289, -22));
         movement2.add(new Animation("block2.png", 5, 137, 280, -41));
-
+        //character 2 attacks
         ArrayList<Move> attack2 = new ArrayList<Move>();
-
         attack2.add(new Move("punch2.png", 7, 220, 279, -102, 10, new Rectangle(0, 0, 90, 300), punch));
         attack2.add(new Move("kick2.png", 8, 278, 280, -123, 20, new Rectangle(0, 0, 110, 300), kick));
         attack2.add(new Move("slash2.png", 14, 418, 281, -252, 25, new Rectangle(0, 0, 220, 300), slash));
         attack2.add(new Move("6punch2.png", 11, 276, 281, -119, 15, new Rectangle(0, 0, 100, 300), punch6));
-
+        
+        //create 2 characters and set their positions
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack2);
         sol1.moveCharacter(500, 100);
@@ -139,6 +124,7 @@ public class GameScreen implements Screen {
      * Also includes the combat and which buttons to press
      */
     public void input() {
+        //Runs if character 1 is not stunned
         if (sol1.getStun() == false) {
             //Movement and combat for player 1
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -164,6 +150,7 @@ public class GameScreen implements Screen {
             }
         }
         //Movement and combat for player 2
+        //Runs if character 2 is not stunned
         if (sol2.getStun() == false) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 sol2.moveRight();
@@ -197,19 +184,25 @@ public class GameScreen implements Screen {
     public void logic() {
         //When player 1 is attack player 2
         if (sol1.isAttacking() == true) {
+            //Get the hurtbox
             Rectangle hurtbox = sol1.getAttack().get(sol1.getAttackIndex()).dealDamage(sol1.getxPos() + 90, sol1.getyPos());
+            //If hurtbox overlaps with hitbox, deal damage
             if (hurtbox.overlaps(sol2.getHitbox())) {
                 sol2.isHit(sol1.getAttack().get(sol1.getAttackIndex()).getDamage());
             }
         }
         //When player 2 is attacking player 1
         if (sol2.isAttacking() == true) {
+            //Get the hurtbox
             Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - 90, sol2.getyPos());
+            //If hurtbox overlaps with hitbox, deal damage
             if (hurtbox.overlaps(sol1.getHitbox())) {
                 sol1.isHit(sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
             }
         }
-        //Checking to see if the hit boxes overlaps with a hurt box
+        //Checking to see if the hit boxes overlap with each other
+        //collision of characters
+        //Depending on who is moving, they get their position translated to counteract their movement
         if (sol1.getHitbox().overlaps(sol2.getHitbox())) {
             if (sol1.isMoving() == true && sol2.isMoving() == false) {
                 sol1.setxPos(-sol1.getSpeed());

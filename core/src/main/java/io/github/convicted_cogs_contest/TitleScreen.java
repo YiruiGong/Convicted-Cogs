@@ -1,7 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+Sahadad Ewaz & Thomas Filsinger
+*/
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.Gdx;
@@ -9,10 +8,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-/**
- *
- * @author Administrator
- */
+
 public class TitleScreen implements Screen{
     //Create Private Attributes
     private BitmapFont font;

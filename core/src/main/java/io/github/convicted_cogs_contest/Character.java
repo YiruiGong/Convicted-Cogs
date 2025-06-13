@@ -1,5 +1,5 @@
 /*
-Yirui Gong & Thomas Filsinger
+Yirui Gong, Sahadad Ewaz, & Thomas Filsinger
 
 */
 package io.github.convicted_cogs_contest;
@@ -41,7 +41,7 @@ public class Character {
      * @param movement movement animations
      * @param attacks animations for attacking
      */
-    public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacks) {
+    public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacs) {
         this.spriteBatch = spriteBatch;
         width = 90;
         hitbox = new Rectangle(xPos, yPos, width, 300);
@@ -53,7 +53,7 @@ public class Character {
         yPos = 0;
 
         this.movement = movement;
-        this.attack = attacks;
+        this.attack = attack;
 
         health = 100;
 
@@ -68,26 +68,36 @@ public class Character {
      * and drawing the animation of the character getting hit and the x and y position
      */
     public void draw() {
+        //If stunned
         if (stun == true) {
+            //And if hit
             if (hit == true) {
+                //Plays either hit or block animation
                 movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
+                //Set to see if still stunned
                 setStun(movement.get(movementIndex));
+            //Otherwise play attack animation
             } else {
+                //Set attacking to true
                 attacking = true;
                 attack.get(attackIndex).draw(spriteBatch, xPos, yPos);
+                //Set to see if still stunned
                 setStun(attack.get(attackIndex));
             }
+        //Otherwise play the corresponding animation
         } else {
             movement.get(movementIndex).draw(spriteBatch, xPos, yPos);
         }
+        //Update hitbox
         hitbox.setPosition(xPos, yPos);
     }
     /**
      * method for attack animation
-     * @param move checks to see if the character is moving before attacking
+     * @param move move to use
      */
     public void attack(int move) {
         attackIndex = move;
+        //Set attacking and stunned to true
         stun = true;
         attacking = true;
     }
@@ -96,17 +106,24 @@ public class Character {
      * @param a animation for when the player gets hit
      */
     public void setStun(Animation a) {
+        //Check if animation is done
         if (a.doneAnimation() == true) {
+            //If hit, then reset it to not hit
             if (hit == true) {
                 hit = false;
+                //Blocking and attacking are false
                 blocking = false;
                 attacking = false;
+            //Otherwise still hit, so only set attacking to false
             } else {
                 attacking = false;
             }
+            //No longer stunned
             stun = false;
+        //Otherwise still stunned
         } else {
             stun = true;
+            //If not attacking, then still being hit
             if (!attacking) {
                 hit = true;
             }
@@ -133,6 +150,7 @@ public class Character {
     public int getHealth() {
         if (health > 0) {
             return health;
+        //If health is less than 0, return 0
         } else {
             return 0;
         }
@@ -156,15 +174,20 @@ public class Character {
      * @param damage how much damage a certain attack does
      */
     public void isHit(int damage) {
+        //Make stunned
         stun = true;
+        //If not hit yet
         if (hit == false) {
+            //If blocking, play block animation and subtract health
             if (blocking == true) {
                 health -= 3;
                 movementIndex = 4;
+            //Otherwise subtract health and play hit animation
             } else {
                 movementIndex = 3;
                 health -= damage;
             }
+            //Set hit to true
             hit = true;
         }
     }
@@ -179,7 +202,9 @@ public class Character {
      * Method to move right
      */
     public void moveRight() {
+        //Set to correct animation
         movementIndex = 1;
+        //Move if not stunned and position is less than 1500
         if (stun == false && xPos <= 1500) {
             xPos += speed;
         }
@@ -189,6 +214,7 @@ public class Character {
      * Method for staying still
      */
     public void notMove() {
+        //Set to correct animation
         movementIndex = 0;
         moving = false;
 
@@ -197,7 +223,9 @@ public class Character {
      * method for moving to the left
      */
     public void moveLeft() {
+        //Set to correct animation
         movementIndex = 2;
+        //Move if not stunned and position is greater than 0
         if (stun == false && xPos > 0) {
             xPos -= speed;
         }
@@ -317,6 +345,50 @@ public class Character {
     public void setMovementIndex(int movementIndex) {
         this.movementIndex = movementIndex;
     }
+
+    /**
+     * Getter for blocking 
+     * @return 
+     */
+    public boolean isBlocking() {
+        return blocking;
+    }
     
+    /**
+     * Setter for hit boolean
+     * @param hit 
+     */
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
     
+    /**
+     * Clones character
+     * @return a clone
+     */
+    public Character clone() {
+        return new Character(spriteBatch, movement, attack);
+    }
+    
+    /**
+     * Equals method
+     * @param c other character to compare to
+     * @return boolean whether is equal
+     */
+    public boolean equals(Character c) {
+        if (hitbox.equals(c.hitbox) && speed == c.speed && moving == c.moving && xPos == c.xPos && yPos == c.yPos && health == c.health 
+&& attack.equals(c.attack) && movement.equals(c.movement) && blocking == c.blocking && hit == c.hit && stun == c.stun &&attacking == c.attacking && width == c.width) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * To String method
+     * @return String
+     */
+    public String toString() {
+        return "Hitbox: " + hitbox + "\nMoving: " + moving + "\nSpeed: " + speed + "\nx Position: " + xPos + "\ny Position: " + yPos + "\nHealth: " + health + "\nAttacks: " + attack.toString() + "\nMovements: " + movement.toString() + "\nBlocking: " + blocking + "\nHit: " + hit + "\nStun: " + stun + "\nAttacking: " + attacking + "Width: " + width;
+    }
 }

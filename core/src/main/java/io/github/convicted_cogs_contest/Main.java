@@ -6,15 +6,9 @@ package io.github.convicted_cogs_contest;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
-/**
- *
- * @author Administrator
- */
 public class Main extends Game {
     //Set up public Attributes 
     public SpriteBatch spriteBatch;

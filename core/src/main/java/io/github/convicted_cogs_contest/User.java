@@ -1,7 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+Yirui Gong
+*/
 package io.github.convicted_cogs_contest;
 
 
@@ -35,8 +34,8 @@ public class User {
     }
     
     /**
-     * Setter, Adds wins to a user
-     * @param winNum 
+     * Adds wins to a user
+     * @param winNum win number to add to
      */
     public void addWinNum(int winNum) {
         this.winNum += winNum;
@@ -54,6 +53,27 @@ public class User {
      */
     public void setWinNum(int winNum) {
         this.winNum = winNum;
+    }
+    
+    /**
+     * Clone method
+     * @return a cloned user
+     */
+    public User clone() {
+        return new User(name, winNum);
+    }
+    
+    /**
+     * Equals method
+     * @param u - User to compare to
+     * @return is equal true or false boolean
+     */
+    public boolean equals(User u) {
+        if (name.equals(u.name) && winNum == u.winNum) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**

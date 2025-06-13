@@ -1,18 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+Yirui Gong
+*/
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import java.util.ArrayList;
 
-/**
- *
- * @author gongm
- */
 public class Move extends Animation {
     //Initilize Private Attributes
     private int damage;
@@ -198,16 +192,19 @@ public class Move extends Animation {
     }
     
     /**
-     * Method to check the frame when the character is damaged
+     * Method to check the frame if it is a damage frame
      * @return 
      */
     public int isDamageFrame() {
+        //Checks if damage frame by seeing if the current frame is a damage frame
         for (int i = 0; i < damageFrames.length; i ++) {
             if (currentFrame == damageFrames [i]) {
+                //If successful, return the frame
                 dFrameIndex = i;
                 return currentFrame;
             }
         }
+        //Otherwise return -1
         return -1;
     }
     /**
@@ -217,12 +214,44 @@ public class Move extends Animation {
      * @return hurt box positions or a new rectangle
      */
     public Rectangle dealDamage(int xPos, int yPos) {
+        //Check if damage frame
         int f = isDamageFrame();
+        //if is damage frame, return a hurtbox
         if (f != -1) {
             return hurtbox.setPosition(xPos, yPos);
         }
+        //Else create a hurtbox off world
         else {
             return new Rectangle(-1,-1, 0, 0);
         }
+    }
+    
+    /**
+     * Equals method
+     * @param m - Move to compare to
+     * @return boolean whether is equal
+     */
+    public boolean equals(Move m) {
+        if (super.equals(m) == true && damage == m.damage && hurtbox.equals(m.hurtbox) && damageFrames == m.damageFrames) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Clone method
+     * @return a clone
+     */
+    public Move clone() {
+        return new Move(imageName, numFrames, frameWidth, frameHeight, xOffset, damage, hurtbox, damageFrames);
+    }
+    
+    /**
+     * To String method
+     * @return a String
+     */
+    public String toString() {
+        return super.toString() + "\nDamage: " + damage + "\nHurtbox: " + hurtbox.toString() + "\nDamage Frames: " + damageFrames;
     }
 }

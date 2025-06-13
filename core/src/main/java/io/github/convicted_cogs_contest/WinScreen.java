@@ -1,4 +1,5 @@
 /*
+Sahadad Ewaz & Yirui Gong
 
 */
 package io.github.convicted_cogs_contest;
@@ -50,9 +51,7 @@ public class WinScreen implements Screen {
         leaderboard.getData().scale(1);
         //create display and users to store user names
         users = new ArrayList<User>();
-        //file = new File("src/main/java/io/github/convicted_cogs_contest/winners.txt");
         file = new File(System.getProperty("user.home") + "/winners.txt");
-        //fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
         restart = true;
     }
 
@@ -61,30 +60,40 @@ public class WinScreen implements Screen {
      * method to load the leader board by reading from a file and write the same file 
      */
     public void loadLeaderboard() {
+        //read the file
         readFile();
+        //When  winner screen shows up user will be prompted with a JOptionPane
         String name = JOptionPane.showInputDialog("Enter Winner's Name:");
+        //Find if existing user
         int userIndex = searchArray(name);
+        //If existing add one to wins
         if (userIndex == -1) {
             users.add(new User(name, 1));
+        //Otherwise create new user
         } else {
             users.get(userIndex).addWinNum(1);
         }
+        //Sort the arraylist
         users = quickSortFile(users, 0, users.size() - 1);
+        //Write back onto the file
         writeFile();
     }
     
     /**
-     * Method to write a file
+     * Method to write on a file
      */
     public void writeFile() {
         try {
+            //Reset file to blank
             new FileWriter(System.getProperty("user.home") + "/winners.txt", false).close();
+            //Write the user arraylist onto the file
             FileWriter winnerWriter = new FileWriter(file);
             for (int i = 0; i < users.size(); i++) {
                 winnerWriter.write(users.get(i).getName() + "\n" + users.get(i).getWinNum() + "\n");
 
             }
             winnerWriter.close();
+        //catch errors
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -96,10 +105,12 @@ public class WinScreen implements Screen {
      */
     public void readFile() {
         try {
+            //Scan the file and add information into the user arraylist
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
                 users.add(new User(s.nextLine(), Integer.parseInt(s.nextLine())));
             }
+        //catch exceptions
         } catch (FileNotFoundException e) {
             System.out.println("Error: " + e);
         } catch (NoSuchElementException a) {
@@ -113,14 +124,24 @@ public class WinScreen implements Screen {
      * @return either an int i or -1
      */
     public int searchArray(String name) {
+        //For every user, look for the same name
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getName().equals(name)) {
+                //If found return the index
                 return i;
             }
         }
+        //Otherwise return -1
         return -1;
     }
-
+    
+    /**
+     * Quicksorts arraylist in descending order
+     * @param items - the arraylist
+     * @param start - start index
+     * @param end - end index
+     * @return sorted arraylist
+     */
     public ArrayList<User> quickSortFile(ArrayList<User> items, int start, int end) {
         // Base case for recursion:
         // The recursion will stop when the partition contains a single item
@@ -180,21 +201,21 @@ public class WinScreen implements Screen {
     @Override
     public void render(float a) {
         String display = "";
+        //Add the users to the display
         for (int i = 0; i < users.size(); i ++) {
             display += users.get(i).toString() + "\n";
         }
         game.spriteBatch.begin();
-
+        //Draw background and text
         game.spriteBatch.draw(background, 0, 0);
         font.draw(game.spriteBatch, "You Win!", 600, 800);
         font.draw(game.spriteBatch, "Leaderboard", 100, 700);
         font.draw(game.spriteBatch, "Click to Return To Main Menu", 50, 200);
         font.draw(game.spriteBatch, "Press R To Rematch", 900, 100);
         leaderboard.draw(game.spriteBatch, "Game Made By:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 800, 500);
-
         leaderboard.draw(game.spriteBatch, display, 100, 600);
         game.spriteBatch.end();
-        //When  winner screen shows up user will be prompted with a JOptionPane where the write method will run
+        //Reset the array and reload the array if restart is true
         if (restart == true) {
             users = new ArrayList<User>();
             loadLeaderboard();
