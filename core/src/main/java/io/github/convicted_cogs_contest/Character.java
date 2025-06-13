@@ -38,9 +38,9 @@ public class Character {
      * Primary Constructor
      * @param spriteBatch Loads images
      * @param movement movement animations
-     * @param attacks animations for attacking
+     * @param attack animations for attacking
      */
-    public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacs) {
+    public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attack) {
         this.spriteBatch = spriteBatch;
         width = 90;
         hitbox = new Rectangle(xPos, yPos, width, 300);

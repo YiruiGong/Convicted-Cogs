@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
     private boolean win;
     private BitmapFont p1Font;
     private BitmapFont p2Font;
+    private int[] attack2Width;
 
     Color green = new Color();
     Color orange = new Color();
@@ -87,7 +88,8 @@ public class GameScreen implements Screen {
         attack2.add(new Move("kick2.png", 8, 278, 280, -123, 20, new Rectangle(0, 0, 110, 300), kick));
         attack2.add(new Move("slash2.png", 14, 418, 281, -252, 25, new Rectangle(0, 0, 220, 300), slash));
         attack2.add(new Move("6punch2.png", 11, 276, 281, -119, 15, new Rectangle(0, 0, 100, 300), punch6));
-        
+        int [] attack2Width = {90, 110, 220, 100};
+        this.attack2Width = attack2Width;
         //create 2 characters and set their positions
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack2);
@@ -193,7 +195,7 @@ public class GameScreen implements Screen {
         //When player 2 is attacking player 1
         if (sol2.isAttacking() == true) {
             //Get the hurtbox
-            Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - 90, sol2.getyPos());
+            Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - attack2Width[sol2.getAttackIndex()], sol2.getyPos());
             //If hurtbox overlaps with hitbox, deal damage
             if (hurtbox.overlaps(sol1.getHitbox())) {
                 sol1.isHit(sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
