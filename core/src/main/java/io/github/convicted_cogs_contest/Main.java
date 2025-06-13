@@ -6,6 +6,7 @@ package io.github.convicted_cogs_contest;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -89,5 +90,110 @@ public class Main extends Game {
             }
             
         }
+    }
+    /**
+     * Get the font/text and images
+     * @return spriteBatch
+     */
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
+    }
+    /**
+     * Set the font/text and images
+     * @param spriteBatch 
+     */
+    public void setSpriteBatch(SpriteBatch spriteBatch) {
+        this.spriteBatch = spriteBatch;
+    }
+    /**
+     * set the screen
+     * @param screen 
+     */
+    public void setScreen(int screen) {
+        this.screen = screen;
+    }
+    /**
+     * get the title screen
+     * @return titlescreen
+     */
+    public TitleScreen getTitleScreen() {
+        return titleScreen;
+    }
+    /**
+     * set the title screen
+     * @param titleScreen 
+     */
+    public void setTitleScreen(TitleScreen titleScreen) {
+        this.titleScreen = titleScreen;
+    }
+    /**
+     * get the control screen
+     * @return control screen
+     */
+    public ControlScreen getControlScreen() {
+        return controlScreen;
+    }
+    /**
+     * set the control screen
+     * @param controlScreen 
+     */
+    public void setControlScreen(ControlScreen controlScreen) {
+        this.controlScreen = controlScreen;
+    }
+    /**
+     * get the game screen
+     * @return gameScreen
+     */
+    public GameScreen getGameScreen() {
+        return gameScreen;
+    }
+    /**
+     * set the game screen
+     * @param gameScreen 
+     */
+    public void setGameScreen(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+    }
+    /**
+     * Get win screen
+     * @return winScreen
+     */
+    public WinScreen getWinScreen() {
+        return winScreen;
+    }
+    /**
+     * Set win screen when activated
+     * @param winScreen 
+     */
+    public void setWinScreen(WinScreen winScreen) {
+        this.winScreen = winScreen;
+    }
+    /**
+     * Gets a win when health is 0
+     * @return win
+     */
+    public boolean isWin() {
+        return win;
+    }
+    /**
+     * Sets the win for one person
+     * @param win 
+     */
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+    /**
+     * Get users from array list
+     * @return 
+     */
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+    /**
+     * Set users from array list
+     * @param users 
+     */
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 }

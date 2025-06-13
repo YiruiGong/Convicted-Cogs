@@ -91,5 +91,49 @@ public class ControlScreen implements Screen {
         font.dispose();
         background.dispose();
     }
+    /**
+     * Getter, gets the font
+     * @return returns the font
+     */
+    public BitmapFont getFont() {
+        return font;
+    }
+    /**
+     * Setter, Sets the font/text
+     * @param font text/font that will be outputted to the user 
+     */
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+    /**
+     * Getter, gets the image of the background
+     * @return  returns background
+     */
+    public Texture getBackground() {
+        return background;
+    }
+    /**
+     * Setter, Sets the background with this image
+     * @param background image of the background
+     */
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+    /**
+     * getter, gets the main game
+     * @return returns the game
+     */
+    public Main getGame() {
+        return game;
+    }
+    /**
+     * Setter, sets the game for the user
+     * @param game 
+     */
+    public void setGame(Main game) {
+        this.game = game;
+    }
+    
+    
     
 }

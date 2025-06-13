@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
  * @author Administrator
  */
 public class TitleScreen implements Screen{
+    //Create Private Attributes
     private BitmapFont font;
     private Texture Cog;
     private Texture background;
@@ -93,5 +94,63 @@ public class TitleScreen implements Screen{
     public void hide() {
         
     }
+    /**
+     * Getter, gets the font
+     * @return returns the font
+     */
+    public BitmapFont getFont() {
+        return font;
+    }
+    /**
+     * Setter, Sets the font/text
+     * @param font text/font that will be outputted to the user 
+     */
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+    /**
+     * getter, gets the image of the cog
+     * @return returns cog
+     */
+    public Texture getCog() {
+        return Cog;
+    }
+    /**
+     * Setter, sets the image of the cog
+     * @param Cog image of a cog
+     */
+    public void setCog(Texture Cog) {
+        this.Cog = Cog;
+    }
+    /**
+     * Getter, gets the image of the background
+     * @return  returns background
+     */
+    public Texture getBackground() {
+        return background;
+    }
+    /**
+     * Setter, Sets the background with this image
+     * @param background image of the background
+     */
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+    /**
+     * getter, gets the main game
+     * @return returns the game
+     */
+    public Main getGame() {
+        return game;
+    }
+    /**
+     * Setter, sets the game for the user
+     * @param game 
+     */
+    public void setGame(Main game) {
+        this.game = game;
+    }
+    
+    
     
 }

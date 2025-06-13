@@ -41,6 +41,9 @@ public class GameScreen implements Screen {
         this.game = game;
     }
 
+    /**
+     * will load the method so that the program is ready to render 
+     */
     @Override
     public void show() {
         p1Font = new BitmapFont();
@@ -108,12 +111,21 @@ public class GameScreen implements Screen {
         sol2.moveCharacter(1600 - sol2.getWidth() - 500, 100);
 
     }
-
+    
+    /**
+     * Changes the screen size
+     * @param width changes the width of the screen
+     * @param height changes the length of the screen
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
 
+    /**
+     * Renders all of the methods 
+     * @param f makes sures that this method is able to run
+     */
     @Override
     public void render(float f) {
         input();
@@ -121,8 +133,14 @@ public class GameScreen implements Screen {
         draw();
     }
 
+    /**
+     * The different movement keys for each of the characters
+     * different for player one compared to player two
+     * Also includes the combat and which buttons to press
+     */
     public void input() {
         if (sol1.getStun() == false) {
+            //Movement and combat for player 1
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 sol1.moveLeft();
             } else if (Gdx.input.isKeyPressed(Input.Keys.I) && Gdx.input.isKeyPressed(Input.Keys.D)) {
@@ -139,13 +157,14 @@ public class GameScreen implements Screen {
             } else {
                 sol1.notMove();
             }
+            //Blocking for player 1
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 sol1.setBlock(true);
             } else {
                 sol1.setBlock(false);
             }
         }
-
+        //Movement and combat for player 2
         if (sol2.getStun() == false) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 sol2.moveRight();
@@ -162,7 +181,8 @@ public class GameScreen implements Screen {
             } else {
                 sol2.notMove();
             }
-
+            
+            //Blocking for player 2
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 sol2.setBlock(true);
             } else {
@@ -170,22 +190,27 @@ public class GameScreen implements Screen {
             }
         }
     }
-
+    /**
+     * This method calculates the hit boxes with hurt boxes to see if the attack connected
+     * and also includes how much damage the player takes when getting hit with different types of attacks
+     * and when one player reaches zero hit point will switch to the win screen
+     */
     public void logic() {
+        //When player 1 is attack player 2
         if (sol1.isAttacking() == true) {
             Rectangle hurtbox = sol1.getAttack().get(sol1.getAttackIndex()).dealDamage(sol1.getxPos() + 90, sol1.getyPos());
             if (hurtbox.overlaps(sol2.getHitbox())) {
                 sol2.isHit(sol1.getAttack().get(sol1.getAttackIndex()).getDamage());
             }
         }
-
+        //When player 2 is attacking player 1
         if (sol2.isAttacking() == true) {
             Rectangle hurtbox = sol2.getAttack().get(sol2.getAttackIndex()).dealDamage(sol2.getxPos() - 90, sol2.getyPos());
             if (hurtbox.overlaps(sol1.getHitbox())) {
                 sol1.isHit(sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
             }
         }
-
+        //Checking to see if the hit boxes overlaps with a hurt box
         if (sol1.getHitbox().overlaps(sol2.getHitbox())) {
             if (sol1.isMoving() == true && sol2.isMoving() == false) {
                 sol1.setxPos(-sol1.getSpeed());
@@ -196,14 +221,16 @@ public class GameScreen implements Screen {
                 sol2.setxPos(sol2.getSpeed());
             }
         }
-
+        //When one the players reaches zero hit points show the win screen
         if (sol1.getHealth() == 0 || sol2.getHealth() == 0) {
             win = true;
         } else {
             win = false;
         }
     }
-
+    /**
+     * draws everything that the player might see such as the background, characters and health bars
+     */
     public void draw() {
         ScreenUtils.clear(Color.BLACK);
 
@@ -224,25 +251,225 @@ public class GameScreen implements Screen {
         game.spriteBatch.end();
     }
 
+    /**
+     * Disposes when switching screens
+     */
     @Override
     public void dispose() {
 
     }
-
+    /**
+     * pauses the screen
+     */
     @Override
     public void pause() {
     }
-
+    /**
+     * resumes the screen when paused
+     */
     @Override
     public void resume() {
     }
-
+    /**
+     * Hides the screen
+     */
     @Override
     public void hide() {
     }
-
+    /**
+     * Getter, gets win from user
+     * @return win
+     */
     public boolean getWin() {
         return win;
     }
+
+    //Setters and getters 
+    /**
+     * Getter, gets ViewPort
+     * @return view port
+     */
+    public FitViewport getViewport() {
+        return viewport;
+    }
+    /**
+     * Setter, sets the view port
+     * @param viewport 
+     */
+    public void setViewport(FitViewport viewport) {
+        this.viewport = viewport;
+    }
+    /**
+     * Getter, Gets the first character
+     * @return sol1
+     */
+    public Character getSol1() {
+        return sol1;
+    }
+    /**
+     * Setter, sets the first character
+     * @param sol1 
+     */
+    public void setSol1(Character sol1) {
+        this.sol1 = sol1;
+    }
+    /**
+     * Getter, Gets the second character
+     * @return sol2
+     */
+    public Character getSol2() {
+        return sol2;
+    }
+    /**
+     * Setter, sets the first character
+     * @param sol2
+     */
+    public void setSol2(Character sol2) {
+        this.sol2 = sol2;
+    }
+
+    /**
+     * Getter, gets the image of the background
+     * @return  returns background
+     */
+    public Texture getBackground() {
+        return background;
+    }
+    /**
+     * Setter, Sets the background with this image
+     * @param background image of the background
+     */
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+    /**
+     * Gets the texture of the health unser interface
+     * @return healthUI
+     */
+    public Texture getHealthUI() {
+        return healthUI;
+    }
+    /**
+     * Setter for the health 
+     * @param healthUI texture for the health
+     */
+    public void setHealthUI(Texture healthUI) {
+        this.healthUI = healthUI;
+    }
+    /**
+     * gets the health bar for player 1
+     * @return health bar 1
+     */
+    public Texture getHealthbar1() {
+        return healthbar1;
+    }
+    /**
+     * Sets the image for the health bar
+     * @param healthbar1 
+     */
+    public void setHealthbar1(Texture healthbar1) {
+        this.healthbar1 = healthbar1;
+    }
+    /**
+     * gets the image for player 2
+     * @return health bar
+     */
+    public Texture getHealthbar2() {
+        return healthbar2;
+    }
+    /**
+     * Sets the image for player 2
+     * @param healthbar2 
+     */
+    public void setHealthbar2(Texture healthbar2) {
+        this.healthbar2 = healthbar2;
+    }
+    /**
+     * Gets a win when health is 0
+     * @return win
+     */
+    public boolean isWin() {
+        return win;
+    }
+    /**
+     * Sets the win for one person
+     * @param win 
+     */
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+    /**
+     * Gets the player 1's font
+     * @return p1Font
+     */
+    public BitmapFont getP1Font() {
+        return p1Font;
+    }
+    /**
+     * Sets the player 1's font
+     * @param p1Font 
+     */
+    public void setP1Font(BitmapFont p1Font) {
+        this.p1Font = p1Font;
+    }
+    /**
+     * Gets the player 2's font
+     * @return p1Font
+     */
+    public BitmapFont getP2Font() {
+        return p2Font;
+    }
+    /**
+     * Sets the player 2's font
+     * @param p2Font 
+     */
+    public void setP2Font(BitmapFont p2Font) {
+        this.p2Font = p2Font;
+    }
+    /**
+     * Gets the color green
+     * @return green
+     */
+    public Color getGreen() {
+        return green;
+    }
+    /**
+     * Sets the color green
+     * @param green 
+     */
+    public void setGreen(Color green) {
+        this.green = green;
+    }
+    /**
+     * Gets the color orange
+     * @return  orange
+     */
+    public Color getOrange() {
+        return orange;
+    }
+    /**
+     * Sets the color orange
+     * @param orange 
+     */
+    public void setOrange(Color orange) {
+        this.orange = orange;
+    }
+
+    /**
+     * getter, gets the main game
+     * @return returns the game
+     */
+    public Main getGame() {
+        return game;
+    }
+    /**
+     * Setter, sets the game for the user
+     * @param game 
+     */
+    public void setGame(Main game) {
+        this.game = game;
+    }
+    
+    
 
 }

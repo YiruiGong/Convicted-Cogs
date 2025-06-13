@@ -253,4 +253,92 @@ public class WinScreen implements Screen {
         font.dispose();
         background.dispose();
     }
+
+    /**
+     * Getter, gets the font
+     * @return returns the font
+     */
+    public BitmapFont getFont() {
+        return font;
+    }
+    /**
+     * Setter, Sets the font/text
+     * @param font text/font that will be outputted to the user 
+     */
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
+    /**
+     * Getter, gets the image of the background
+     * @return  returns background
+     */
+    public Texture getBackground() {
+        return background;
+    }
+    /**
+     * Setter, Sets the background with this image
+     * @param background image of the background
+     */
+    public void setBackground(Texture background) {
+        this.background = background;
+    }
+    /**
+     * Getter, gets the leader board
+     * @return leader board
+     */
+    public BitmapFont getLeaderboard() {
+        return leaderboard;
+    }
+    /**
+     * Setter, Sets the leader board
+     * @param leaderboard 
+     */
+    public void setLeaderboard(BitmapFont leaderboard) {
+        this.leaderboard = leaderboard;
+    }
+    /**
+     * Getter, Gets an users from array list
+     * @return user
+     */
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+    /**
+     * Setter, sets the users in the array list
+     * @param users 
+     */
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
+    }
+    /**
+     * getter, gets the main game
+     * @return returns the game
+     */
+    public Main getGame() {
+        return game;
+    }
+    /**
+     * Setter, sets the game for the user
+     * @param game 
+     */
+    public void setGame(Main game) {
+        this.game = game;
+    }
+    /**
+     * Getter, gets the file
+     * @return file
+     */
+    public File getFile() {
+        return file;
+    }
+    /**
+     * Setter, sets the file
+     * @param file 
+     */
+    public void setFile(File file) {
+        this.file = file;
+    }
+    
+    
 }
