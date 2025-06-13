@@ -82,7 +82,7 @@ public class Main extends Game {
                 screen = 1;
             }
             //if the user is on the win screen and want to rematch then the user will have to press a key R 
-            if (Gdx.input.isButtonPressed(Input.Keys.SPACE)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.R) && getScreen() instanceof WinScreen) {
                 screen = 3;
                 win = false;
                 this.setScreen(gameScreen);

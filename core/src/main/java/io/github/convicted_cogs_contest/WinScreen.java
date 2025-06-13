@@ -47,7 +47,7 @@ public class WinScreen implements Screen {
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
         leaderboard = new BitmapFont();
         font.getData().scale(0);
-        leaderboard.getData().scale(5);
+        leaderboard.getData().scale(1);
         //create display and users to store user names
         users = new ArrayList<User>();
         //file = new File("src/main/java/io/github/convicted_cogs_contest/winners.txt");
@@ -186,10 +186,11 @@ public class WinScreen implements Screen {
         game.spriteBatch.begin();
 
         game.spriteBatch.draw(background, 0, 0);
-        font.draw(game.spriteBatch, "You Win!", 800, 700);
-        font.draw(game.spriteBatch, "Click to Return To Main Menu", 100, 200);
-        font.draw(game.spriteBatch, "Press R To Rematch", 1200, 200);
-        font.draw(game.spriteBatch, "Game Made By:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
+        font.draw(game.spriteBatch, "You Win!", 600, 800);
+        font.draw(game.spriteBatch, "Leaderboard", 100, 700);
+        font.draw(game.spriteBatch, "Click to Return To Main Menu", 50, 200);
+        font.draw(game.spriteBatch, "Press R To Rematch", 900, 100);
+        leaderboard.draw(game.spriteBatch, "Game Made By:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 800, 500);
 
         leaderboard.draw(game.spriteBatch, display, 100, 600);
         game.spriteBatch.end();
