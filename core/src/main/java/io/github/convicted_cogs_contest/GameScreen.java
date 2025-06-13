@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
 
         attack2.add(new Move("punch2.png", 7, 220, 279, -102, 10, new Rectangle(0, 0, 90, 300), punch));
         attack2.add(new Move("kick2.png", 8, 278, 280, -123, 20, new Rectangle(0, 0, 110, 300), kick));
-        attack2.add(new Move("slash1.png", 14, 418, 281, -252, 25, new Rectangle(0, 0, 220, 300), slash));
+        attack2.add(new Move("slash2.png", 14, 418, 281, -252, 25, new Rectangle(0, 0, 220, 300), slash));
         attack2.add(new Move("6punch2.png", 11, 276, 281, -119, 15, new Rectangle(0, 0, 100, 300), punch6));
 
         sol1 = new Character(game.spriteBatch, movement1, attack1);
@@ -153,7 +153,6 @@ public class GameScreen implements Screen {
                 sol1.attack(2);
             } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
                 sol1.moveRight();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             } else {
                 sol1.notMove();
             }
