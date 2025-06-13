@@ -24,25 +24,28 @@ public class Main extends Game {
     private WinScreen winScreen = new WinScreen(this);;
     private boolean win;
     public ArrayList<User> users;
-
+    
+    /**
+     * initialize variables and load the title screen
+     */
     @Override
     public void create() {
-        //initialize variables and load the title screen
         spriteBatch = new SpriteBatch();
         this.setScreen(titleScreen);
         screen = 1;
     }
-
+    /**
+     * render the input,logic and draw methods
+     */
     @Override
     public void render() {
-        //render the input,logic and draw methods
         super.render();
         screenSwitch();
     }
-
+    /**
+     * allows the user to switch screen when clicking on a certain spot on a certain screen or by pressing a button
+     */
     public void screenSwitch() {
-        System.out.println("X Val: " + Gdx.input.getX());
-        System.out.println("Y Val: " + Gdx.input.getY());
         if (screen == 1) {
             //When the user is on the title screen and presses space bar the user will go to the fight screen
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && getScreen() instanceof TitleScreen) {

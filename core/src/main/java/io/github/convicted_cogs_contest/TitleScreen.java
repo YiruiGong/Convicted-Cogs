@@ -20,11 +20,16 @@ public class TitleScreen implements Screen{
     
    
     Main game;
-    //Main class is able to use Title Screen
+    /**
+     * Main class is able to use Title Screen
+     * @param game 
+     */
     public TitleScreen(Main game) {
         this.game = game;
     }
-
+    /**
+     * Gets rid of all fonts,images, and textures when provoked
+     */
     @Override
     public void dispose() {
         // Destroy screen's assets here.
@@ -33,41 +38,57 @@ public class TitleScreen implements Screen{
         background.dispose();
         font.dispose();
     }
-
+    /**
+     * Loads all textures and fonts
+     * Scale all of the text to the right size
+     */
     @Override
     public void show() {
-        //load all textures and fonts
         Cog = new Texture("cog.png");
         background = new Texture("background.png");
         font = new BitmapFont(Gdx.files.internal("ggstFont.fnt"));
-        //Scale all of the text to the right size
         font.getData().scale(0);   }
-
+    /**
+     * Render all of the textures and fonts for the user to see
+     * begin with SpriteBatch.begin and end with spriteBatch.end
+     * @param f 
+     */
     @Override
     public void render(float f) {
-        //Render all of the textures and fonts for the user to see
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(Cog, 100, 100);
         font.draw(game.spriteBatch, "Convicted Cogs Contest",680,550);
         font.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
         font.draw(game.spriteBatch, "Left Click for Controls", 680, 200);
-        
         game.spriteBatch.end();    
     }
-
+    /**
+     * Resize the screen when needed
+     * @param i Width of the screen
+     * @param i1 Length of the screen
+     */
     @Override
     public void resize(int i, int i1) {
     }
-
+    
+    /**
+     *  Will pause the screen
+     */
     @Override
     public void pause() {
     }
 
+    /**
+     * Will resume the screen if paused
+     */
     @Override
     public void resume() {
     }
-
+    
+    /**
+     * Will hide screen elements.
+     */
     @Override
     public void hide() {
         
