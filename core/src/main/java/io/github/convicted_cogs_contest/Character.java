@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Character {
 
-    private Texture texture;
     private Rectangle hitbox;
 
     private int speed;
@@ -38,7 +37,6 @@ public class Character {
 
     public Character(SpriteBatch spriteBatch, ArrayList<Animation> movement, ArrayList<Move> attacks) {
         this.spriteBatch = spriteBatch;
-        texture = new Texture("idle.png");
         width = 90;
         hitbox = new Rectangle(xPos, yPos, width, 300);
         

@@ -1,7 +1,6 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
+*/
 package io.github.convicted_cogs_contest;
 
 //Load imports
@@ -43,6 +42,7 @@ public class WinScreen implements Screen {
         leaderboard = new BitmapFont();
         //Scale the size of the fonts
         font.getData().scale(0);
+        leaderboard.getData().scale(5);
         //create display and users to store user names
         users = new ArrayList<User>();
         //file = new File("src/main/java/io/github/convicted_cogs_contest/winners.txt");
@@ -62,6 +62,7 @@ public class WinScreen implements Screen {
             users.get(userIndex).addWinNum(1);
         }
         users = quickSortFile(users, 0, users.size() - 1);
+        writeFile();
     }
 
     public void writeFile() {
@@ -167,9 +168,9 @@ public class WinScreen implements Screen {
 
         game.spriteBatch.draw(background, 0, 0);
         font.draw(game.spriteBatch, "You Win!", 800, 700);
-        font.draw(game.spriteBatch, "Main Menu", 100, 200);
-        font.draw(game.spriteBatch, "Rematch", 1200, 200);
-        font.draw(game.spriteBatch, "Game made by:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
+        font.draw(game.spriteBatch, "Click to Return To Main Menu", 100, 200);
+        font.draw(game.spriteBatch, "Press R To Rematch", 1200, 200);
+        font.draw(game.spriteBatch, "Game Made By:\nYirui Gong\nThomas Filsinger\nSahadad Ewaz", 600, 500);
 
         leaderboard.draw(game.spriteBatch, display, 100, 600);
         game.spriteBatch.end();

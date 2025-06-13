@@ -1,7 +1,7 @@
 /*
 Yirui Gong & Thomas Filsinger
 
-*/
+ */
 package io.github.convicted_cogs_contest;
 
 import com.badlogic.gdx.Gdx;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -28,6 +29,11 @@ public class GameScreen implements Screen {
     private Texture healthbar1;
     private Texture healthbar2;
     private boolean win;
+    private BitmapFont p1Font;
+    private BitmapFont p2Font;
+
+    Color green = new Color();
+    Color orange = new Color();
 
     Main game;
 
@@ -37,34 +43,49 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        //setScreen(new Titlev2(this));
+        p1Font = new BitmapFont();
+        p1Font.setColor(2, 189, 152, 100);
+
+        p2Font = new BitmapFont();
+        p2Font.setColor(236, 129, 17, 100);
+
         win = false;
         viewport = new FitViewport(1600, 900);
         background = new Texture("Lars_Canyon.png");
         healthUI = new Texture("healthUI.png");
         healthbar1 = new Texture("healthbar_1.png");
         healthbar2 = new Texture("healthbar_2.png");
-        
+
         ArrayList<Animation> movement1 = new ArrayList<Animation>();
-        movement1.add(new Animation("idle.png", 8, 144, 283, -14));
-        movement1.add(new Animation("walkforward.png", 10, 214, 286, -80));
-        movement1.add(new Animation("walkbackward.png", 8, 213, 281, -79));
+        movement1.add(new Animation("idle1.png", 8, 144, 283, -14));
+        movement1.add(new Animation("walkforward1.png", 10, 214, 286, -80));
+        movement1.add(new Animation("walkbackward1.png", 8, 213, 281, -79));
         movement1.add(new Animation("hit1.png", 4, 271, 289, -159));
-        movement1.add(new Animation("block.png", 5, 137, 280, -6));
+        movement1.add(new Animation("block1.png", 5, 137, 280, -6));
 
         ArrayList<Move> attack1 = new ArrayList<Move>();
-        
-        ArrayList<Integer> punch = new ArrayList<Integer>();
-        punch.add(3);
-        punch.add(4);
-        punch.add(5);
-        
-        ArrayList<Integer> kick = new ArrayList<Integer>();
-        kick.add(4);
-        kick.add(5);
 
-        attack1.add(new Move("punch.png", 7, 220, 279, -28, 20, new Rectangle(0, 0, 90, 300), punch));
-        attack1.add(new Move("kick1.png", 8, 278, 280, -65, 40, new Rectangle(0, 0, 110, 300), kick));
+//        ArrayList<Integer> punch = new ArrayList<Integer>();
+//        punch.add(3);
+//        punch.add(4);
+//        punch.add(5);
+        int[] punch = {3, 4, 5};
+        int[] kick = {4, 5};
+        int[] slash = {5, 6, 7};
+        int[] punch6 = {6, 7, 8};
+
+//        ArrayList<Integer> kick = new ArrayList<Integer>();
+//        kick.add(4);
+//        kick.add(5);
+//        ArrayList<Integer> punch6 = new ArrayList<Integer>();
+//        punch6.add(5);
+//        punch6.add(6);
+//        punch6.add(7);
+//        punch6.add(8);
+        attack1.add(new Move("punch1.png", 7, 220, 279, -28, 10, new Rectangle(0, 0, 90, 300), punch));
+        attack1.add(new Move("kick1.png", 8, 278, 280, -65, 20, new Rectangle(0, 0, 110, 300), kick));
+        attack1.add(new Move("slash1.png", 14, 418, 281, -76, 25, new Rectangle(0, 0, 220, 300), slash));
+        attack1.add(new Move("6punch1.png", 11, 276, 281, -67, 15, new Rectangle(0, 0, 100, 300), punch6));
 
         ArrayList<Animation> movement2 = new ArrayList<Animation>();
         movement2.add(new Animation("idle2.png", 8, 144, 283, -40));
@@ -75,11 +96,12 @@ public class GameScreen implements Screen {
         movement2.add(new Animation("block2.png", 5, 137, 280, -41));
 
         ArrayList<Move> attack2 = new ArrayList<Move>();
-        
-        attack2.add(new Move("punch2.png", 7, 220, 279, -102, 20, new Rectangle (0, 0, 90, 300), punch));
-        attack2.add(new Move("kick2.png", 8, 278, 280, -123, 40, new Rectangle(0, 0, 110, 100), kick));
-        
-        
+
+        attack2.add(new Move("punch2.png", 7, 220, 279, -102, 10, new Rectangle(0, 0, 90, 300), punch));
+        attack2.add(new Move("kick2.png", 8, 278, 280, -123, 20, new Rectangle(0, 0, 110, 300), kick));
+        attack2.add(new Move("slash1.png", 14, 418, 281, -252, 25, new Rectangle(0, 0, 220, 300), slash));
+        attack2.add(new Move("6punch2.png", 11, 276, 281, -261, 15, new Rectangle(0, 0, 100, 300), punch6));
+
         sol1 = new Character(game.spriteBatch, movement1, attack1);
         sol2 = new Character(game.spriteBatch, movement2, attack2);
         sol1.moveCharacter(500, 100);
@@ -101,14 +123,18 @@ public class GameScreen implements Screen {
 
     public void input() {
         if (sol1.getStun() == false) {
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                sol1.moveRight();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
                 sol1.moveLeft();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.I) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+                sol1.attack(3);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.I)) {
                 sol1.attack(0);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            } else if (Gdx.input.isKeyPressed(Input.Keys.O)) {
                 sol1.attack(1);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+                sol1.attack(2);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                sol1.moveRight();
             } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             } else {
                 sol1.notMove();
@@ -123,15 +149,20 @@ public class GameScreen implements Screen {
         if (sol2.getStun() == false) {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 sol2.moveRight();
+            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.Z)) {
+                sol2.attack(3);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.Z)) {
+                sol2.attack(0);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.X)) {
+                sol2.attack(1);
+            } else if (Gdx.input.isKeyPressed(Input.Keys.C)) {
+                sol2.attack(2);
             } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 sol2.moveLeft();
-            } else if (Gdx.input.isKeyPressed(Input.Keys.N)) {
-                sol2.attack(0);
-            } else if (Gdx.input.isKeyPressed(Input.Keys.M)) {
-                sol2.attack(1);
             } else {
                 sol2.notMove();
             }
+
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 sol2.setBlock(true);
             } else {
@@ -154,7 +185,7 @@ public class GameScreen implements Screen {
                 sol1.isHit(sol2.getAttack().get(sol2.getAttackIndex()).getDamage());
             }
         }
-        
+
         if (sol1.getHitbox().overlaps(sol2.getHitbox())) {
             if (sol1.isMoving() == true && sol2.isMoving() == false) {
                 sol1.setxPos(-sol1.getSpeed());
@@ -165,7 +196,7 @@ public class GameScreen implements Screen {
                 sol2.setxPos(sol2.getSpeed());
             }
         }
-        
+
         if (sol1.getHealth() == 0 || sol2.getHealth() == 0) {
             win = true;
         } else {
@@ -175,17 +206,20 @@ public class GameScreen implements Screen {
 
     public void draw() {
         ScreenUtils.clear(Color.BLACK);
-        
+
         viewport.apply();
         game.spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         game.spriteBatch.begin();
         game.spriteBatch.draw(background, 0, 0);
         game.spriteBatch.draw(healthUI, 0, 600);
-        game.spriteBatch.draw(healthbar1, 100, 686, 0,0, (sol1.getHealth() * 6), 34);
-        game.spriteBatch.draw(healthbar2, 1500 - (sol2.getHealth() * 6), 686, (600 - sol2.getHealth() * 6),0, 600, 34);
-        System.out.println(sol1.getHealth());
+        game.spriteBatch.draw(healthbar1, 100, 686, 0, 0, (sol1.getHealth() * 6), 34);
+        game.spriteBatch.draw(healthbar2, 1500 - (sol2.getHealth() * 6), 686, (600 - sol2.getHealth() * 6), 0, 600, 34);
+
         sol1.draw();
         sol2.draw();
+
+        p1Font.draw(game.spriteBatch, "Player 1", sol1.getxPos(), sol1.getyPos());
+        p2Font.draw(game.spriteBatch, "Player 2", sol2.getxPos(), sol2.getyPos());
 
         game.spriteBatch.end();
     }
@@ -206,7 +240,7 @@ public class GameScreen implements Screen {
     @Override
     public void hide() {
     }
-    
+
     public boolean getWin() {
         return win;
     }

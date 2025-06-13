@@ -49,15 +49,15 @@ public class Main extends Game {
                 this.setScreen(gameScreen);
                 screen = 3;
                 
-                //if the user is on the title screen and left clicks on a certain spot they will go to the control screen
-            } else if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 680 && Gdx.input.getX() < 1380 && Gdx.input.getY() < 610 && Gdx.input.getY() > 530 && getScreen() instanceof TitleScreen) {
+                //if the user is on the title screen and left clicks they will go to the control screen
+            } else if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && getScreen() instanceof TitleScreen) {
                 this.setScreen(controlScreen);
                 screen = 2;
             }
 
             //If the user is on the Control menu and want to return to the title screen
         } else if (screen == 2) {
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 670 && Gdx.input.getX() < 1500 && Gdx.input.getY() < 610 && Gdx.input.getY() > 550 && getScreen() instanceof ControlScreen) {
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && getScreen() instanceof ControlScreen) {
                 this.setScreen(titleScreen);
                 screen = 1;
 
@@ -72,14 +72,14 @@ public class Main extends Game {
                 winScreen.setRestart(true);
                 this.setScreen(winScreen);
             }
-            //If the user is on the Win screen and want to return to the title screen they user will click on a certain spot
+            //If the user is on the Win screen and want to return to the title screen they user will click
         } else if (screen == 4) { 
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)&& Gdx.input.getX() > 100 && Gdx.input.getX() < 400 && Gdx.input.getY() < 630 && Gdx.input.getY() > 580 && getScreen() instanceof WinScreen) {
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && getScreen() instanceof WinScreen) {
                 this.setScreen(titleScreen);
                 screen = 1;
             }
-            //if the user is on the win screen and want to rematch then the user will have to press a button to rematch
-            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            //if the user is on the win screen and want to rematch then the user will have to press a key R 
+            if (Gdx.input.isButtonPressed(Input.Keys.SPACE)) {
                 screen = 3;
                 win = false;
                 this.setScreen(gameScreen);

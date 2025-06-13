@@ -23,10 +23,10 @@ public class User {
     }
     
     public void addWinNum(int winNum) {
-        winNum += winNum;
+        this.winNum += winNum;
     }
     
     public String toString() {
-        return "Name: " + name + "\t\t\t" + "WinNums: " + winNum;
+        return "Name: " + name + "     " + "Wins: " + winNum;
     }
 }

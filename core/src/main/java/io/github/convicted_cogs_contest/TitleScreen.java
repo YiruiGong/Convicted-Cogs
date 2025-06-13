@@ -51,7 +51,7 @@ public class TitleScreen implements Screen{
         game.spriteBatch.draw(Cog, 100, 100);
         font.draw(game.spriteBatch, "Convicted Cogs Contest",680,550);
         font.draw(game.spriteBatch, "Press Space Bar to Continue", 680, 300);
-        font.draw(game.spriteBatch, "Click Here for Controls", 680, 200);
+        font.draw(game.spriteBatch, "Left Click for Controls", 680, 200);
         
         game.spriteBatch.end();    
     }

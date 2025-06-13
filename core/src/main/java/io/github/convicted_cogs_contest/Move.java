@@ -14,11 +14,11 @@ import java.util.ArrayList;
  */
 public class Move extends Animation {
     private int damage;
-    private ArrayList<Integer> damageFrames;
+    private int[] damageFrames;
     private int dFrameIndex;
     private Rectangle hurtbox;
     
-    public Move(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset, int damage, Rectangle hurtbox, ArrayList<Integer> damageFrames) {
+    public Move(String imageName, int numFrames, int frameWidth, int frameHeight, int xOffset, int damage, Rectangle hurtbox, int [] damageFrames) {
         super(imageName, numFrames, frameWidth, frameHeight, xOffset);
         this.damage = damage;
         this.hurtbox = hurtbox;
@@ -30,8 +30,8 @@ public class Move extends Animation {
     }
     
     public int isDamageFrame() {
-        for (int i = 0; i < damageFrames.size(); i ++) {
-            if (currentFrame == damageFrames.get(i)) {
+        for (int i = 0; i < damageFrames.length; i ++) {
+            if (currentFrame == damageFrames [i]) {
                 dFrameIndex = i;
                 return currentFrame;
             }
